@@ -12,7 +12,7 @@ public abstract class centerStageRobot extends baseRobot {
 
 
     public void driveStrafe(double inches, double power) {
-        int[] target = new int[this.driveMotors.size()];
+        int[] target = new int[this.driveMotors.length];
         //TODO: test this and make sure that these are the right changes
         double[] powers = new double[] {power, -power, -power, power};
         Arrays.fill(target, (int) this.inchesToEncoder(inches));
