@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.util.Arrays;
 
 @Disabled
-public abstract class centerStageRobot extends baseRobot {
-    public centerStageRobot() {
-        super(3, 15);
+public class centerStageRobot extends baseRobot {
+    public centerStageRobot(LinearOpMode opmode) {
+        super(opmode, 3.5, 13.75);
     }
 
 
@@ -18,5 +19,10 @@ public abstract class centerStageRobot extends baseRobot {
         Arrays.fill(target, (int) this.inchesToEncoder(inches));
 
         driveEncoded(target, powers);
+    }
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+
     }
 }
