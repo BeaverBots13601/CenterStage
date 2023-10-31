@@ -12,11 +12,16 @@ import java.util.Arrays;
 public abstract class baseRobot extends LinearOpMode {
 
     DcMotorEx[] driveMotors;
+    private LinearOpMode opMode;
     private final double wheelDiameter;
     private final double robotDiameter;
 
-    public baseRobot(double wheelDiameter, double robotDiameter) {
+    public baseRobot(LinearOpMode opmode, double wheelDiameter, double robotDiameter) {
+        super();
+        this.opMode = opmode;
         this.driveMotors = new DcMotorEx[constants.driveMotorName.values().length];
+        this.telemetry = this.opMode.telemetry;
+        this.hardwareMap = this.opMode.hardwareMap;
         this.telemetry.setMsTransmissionInterval(constants.TELEMETRY_MS_TRANSMISSION_INTERVAL);
         createDriveMotors();
 
@@ -49,6 +54,7 @@ public abstract class baseRobot extends LinearOpMode {
         for (constants.driveMotorName driveMotorName : constants.driveMotorName.values()) {
             this.driveMotors[driveMotorName.ordinal()].setMode(mode);
             this.driveMotors[driveMotorName.ordinal()].setPower(powers[driveMotorName.ordinal()]);
+            telemetry.addData("set ", "%s: %f", driveMotorName.name(), powers[driveMotorName.ordinal()]);
         }
     }
 
@@ -68,7 +74,7 @@ public abstract class baseRobot extends LinearOpMode {
     }
 
     double inchesToEncoder(double inches) {
-        return inches * (constants.ENCODER_TICKS / (this.wheelDiameter * Math.PI));
+        return (inches * constants.ENCODER_TICKS / (this.wheelDiameter * Math.PI));
     }
 
     public void driveEncoded(int[] ticks, double[] powers) {
@@ -78,7 +84,7 @@ public abstract class baseRobot extends LinearOpMode {
 
         this.setDriveMotors(powers, DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (opModeIsActive() && this.isDriving()) {
+        while (this.opMode.opModeIsActive() && this.isDriving()) {
             for (constants.driveMotorName driveMotorName : constants.driveMotorName.values()) {
                 telemetry.addData("Running to", " %7d", ticks[driveMotorName.ordinal()]);
                 telemetry.addData("Currently at", "%s at %7d",
@@ -101,9 +107,9 @@ public abstract class baseRobot extends LinearOpMode {
     }
 
     public void turnDegrees(int degrees, double power) {
-        int[] target = new int[this.driveMotors.length];
+        int targetInches = (int) this.inchesToEncoder(Math.toRadians(degrees) * this.robotDiameter);
+        int[] target = new int[] {targetInches, targetInches, -targetInches, -targetInches};
         double[] powers = new double[] {power, power, -power, -power};
-        Arrays.fill(target, (int) this.inchesToEncoder(Math.toRadians(degrees) * this.robotDiameter));
 
         driveEncoded(target, powers);
     }
