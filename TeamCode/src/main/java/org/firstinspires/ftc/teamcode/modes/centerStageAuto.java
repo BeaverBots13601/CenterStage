@@ -12,20 +12,20 @@ public class centerStageAuto extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-//            robot.setDriveMotors(new double[] {0, .5, 0, 0}, DcMotor.RunMode.RUN_USING_ENCODER);
-//            telemetry.update();
-//
-            //int distance = 520;
-            //robot.driveEncoded(new int[] {distance, distance, distance, distance}, new double[] {.5,.5,.5,.5});
-            //robot.driveInches(10, .5);
-            //robot.turnDegrees(90, .5);
-//            robot.driveInches(10, .5);
-//            robot.turnDegrees(90, .3);
-//            robot.driveInches(10, .5);
-//            robot.turnDegrees(90, .3);
-//            robot.driveInches(10, .5);
-//            robot.turnDegrees(90, .3);
-//
+            robot.setDriveMotors(new double[] {0, .5, 0, 0}, DcMotor.RunMode.RUN_USING_ENCODER);
+            telemetry.update();
+
+            int distance = 520;
+            robot.driveEncoded(new int[] {distance, distance, distance, distance}, new double[] {.5,.5,.5,.5});
+            robot.driveInches(10, .5);
+            robot.turnDegrees(90, .5);
+            robot.driveInches(10, .5);
+            robot.turnDegrees(90, .3);
+            robot.driveInches(10, .5);
+            robot.turnDegrees(90, .3);
+            robot.driveInches(10, .5);
+            robot.turnDegrees(90, .3);
+
 //            robot.driveStrafe(10, .5);
             sleep(5000);
         }
