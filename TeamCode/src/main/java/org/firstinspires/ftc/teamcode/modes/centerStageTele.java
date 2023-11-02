@@ -21,6 +21,7 @@ public class centerStageTele extends LinearOpMode {
             float stickX = gamepad1.left_stick_x * tmp_deadzoneadjust;
             float stickY = -gamepad1.left_stick_y * tmp_deadzoneadjust;
             float stickRotation = gamepad1.right_stick_x * tmp_deadzoneadjust;
+ //           float
             double speed = 0.6;
 
 
