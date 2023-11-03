@@ -9,6 +9,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -85,7 +89,7 @@ public abstract class baseRobot {
      * Drive X number of encoder ticks
      * @param powers Array of powers in order of leftFront, leftBack, rightFront, rightBack
      */
-    public void driveEncoded(int[] ticks, double[] powers) {
+    void driveEncoded(int[] ticks, double[] powers) {
         for (constants.driveMotorName driveMotorName : constants.driveMotorName.values()) {
             this.driveMotors[driveMotorName.ordinal()].setTargetPosition(ticks[driveMotorName.ordinal()]);
         }
@@ -155,5 +159,12 @@ public abstract class baseRobot {
         for (LynxModule hub : allHubs) {
             hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
+    }
+
+    /**
+     * @return double imu angle around the vertical axis (rotation).
+     */
+    public double getImuAngle() {
+        return this.imu.getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.RADIANS).thirdAngle;
     }
 }
