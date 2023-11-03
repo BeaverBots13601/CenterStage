@@ -7,7 +7,7 @@ public class constants {
         leftFront, leftBack, rightFront, rightBack;
 
     }
-    public static final int ENCODER_TICKS = 520;
+    public static final double ENCODER_TICKS = 537.70;
     public static final int TELEMETRY_MS_TRANSMISSION_INTERVAL = 25;
 
 
