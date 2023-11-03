@@ -29,4 +29,28 @@ public class Pose {
     public double getAngle() {
         return angle;
     }
+
+    /**
+     * @param x x value of the point
+     * @param y y value of the point
+     * @param angle angle change of the point
+     * @return rotation of point (x, y) around angle
+     */
+    public static Pose rotatePosition(double x, double y, double angle) {
+        return new Pose(x * Math.cos(angle) - y * Math.sin(angle),
+                x * Math.sin(angle) + y * Math.cos(angle), angle);
+    }
+
+    /**
+     * @return double angle within the range [-π, π]
+     */
+    public static double normalizeAngle(double angle) {
+        while (angle > Math.PI) {
+            angle -= 2 * Math.PI;
+        }
+        while (angle < -Math.PI) {
+            angle += 2 * Math.PI;
+        }
+        return angle;
+    }
 }

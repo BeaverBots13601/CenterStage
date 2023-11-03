@@ -14,7 +14,6 @@ public class centerStageRobot extends baseRobot {
     public void driveStrafe(double inches, double power) {
         int ticks = (int) this.inchesToEncoder(inches);
         int[] target = new int[] {ticks, -ticks, -ticks, ticks};
-        //TODO: test this and make sure that these are the right changes
         double[] powers = new double[] {power, -power, -power, power};
 
         driveEncoded(target, powers);
