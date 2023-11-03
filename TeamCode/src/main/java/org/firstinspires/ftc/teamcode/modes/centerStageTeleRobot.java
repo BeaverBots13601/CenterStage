@@ -16,28 +16,19 @@ public class centerStageTeleRobot extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         robot = new centerStageRobot(this);
-        waitForStart();
         int tmp_deadzoneadjust = 2;
+        double speed = 0.65;
+
+        waitForStart();
+
 
         while(opModeIsActive()){
             float stickX = gamepad1.left_stick_x * tmp_deadzoneadjust;
             float stickY = -gamepad1.left_stick_y * tmp_deadzoneadjust;
             float stickRotation = gamepad1.right_stick_x * tmp_deadzoneadjust;
-            double speed = 0.65;
 
-//            Orientation orientation = robot.getImu().getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.RADIANS);
-//            telemetry.addData("IMU DATA (rads):", orientation);
-
-            // TODO: Learn weird math that definitely makes sense to someone, but not me.
             double maxPower = Math.max(Math.abs(stickY) + Math.abs(stickX) + Math.abs(stickRotation), 1);
-            /* Alex suggestion
-            double leftFrontPower  = (stickY + stickX + stickRotation) % (maxPower * speed);
-            double leftBackPower   = (stickY - stickX + stickRotation) % (maxPower * speed);
-            double rightFrontPower = (stickY - stickX - stickRotation) % (maxPower * speed);
-            double rightBackPower  = (stickY + stickX - stickRotation) % (maxPower * speed);
-             */
 
-            // Ben code
             double leftFrontPower  = (stickY + stickX + stickRotation) / maxPower * speed;
             double leftBackPower  = (stickY - stickX + stickRotation) / maxPower * speed;
             double rightFrontPower  = (stickY - stickX - stickRotation) / maxPower * speed;
