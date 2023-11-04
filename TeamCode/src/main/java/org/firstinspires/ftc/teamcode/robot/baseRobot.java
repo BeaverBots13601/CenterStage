@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.hardware.bosch.BNO055IMUNew;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -8,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -23,6 +26,8 @@ public abstract class baseRobot {
     private final double wheelDiameter;
     private final double robotDiameter;
     private final IMU imu;
+    public final FtcDashboard dashboard = FtcDashboard.getInstance();
+    private final TelemetryPacket packet = new TelemetryPacket();
 
     public baseRobot(LinearOpMode opmode, double wheelDiameter, double robotDiameter) {
         super();
@@ -35,11 +40,11 @@ public abstract class baseRobot {
         this.robotDiameter = robotDiameter;
         this.imu = createImu();
 
-        this.opMode.telemetry.addData(">", "Hardware Initialized");
-        this.opMode.telemetry.update();
+        writeToTelemetry(">", "Hardware Initialized");
+        updateTelemetry();
     }
 
-    private DcMotorEx createDefaultMotor(String motorName) {
+    protected DcMotorEx createDefaultMotor(String motorName) {
         DcMotorEx motor = this.opMode.hardwareMap.get(DcMotorEx.class, motorName);
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -61,7 +66,7 @@ public abstract class baseRobot {
         for (constants.driveMotorName driveMotorName : constants.driveMotorName.values()) {
             this.driveMotors[driveMotorName.ordinal()].setMode(mode);
             this.driveMotors[driveMotorName.ordinal()].setPower(powers[driveMotorName.ordinal()]);
-            this.opMode.telemetry.addData("set ", "%s: %f", driveMotorName.name(), powers[driveMotorName.ordinal()]);
+            writeToTelemetry("set ", driveMotorName.name() + ": " + powers[driveMotorName.ordinal()]);
         }
     }
 
@@ -98,12 +103,10 @@ public abstract class baseRobot {
 
         while (this.opMode.opModeIsActive() && this.isDriving()) {
             for (constants.driveMotorName driveMotorName : constants.driveMotorName.values()) {
-                this.opMode.telemetry.addData("Running to", " %7d", ticks[driveMotorName.ordinal()]);
-                this.opMode.telemetry.addData("Currently at", "%s at %7d",
-                        driveMotorName.name(),
-                        this.driveMotors[driveMotorName.ordinal()].getCurrentPosition());
+                writeToTelemetry("Running to", " " + ticks[driveMotorName.ordinal()]);
+                writeToTelemetry("Currently at", driveMotorName.name() + " at " + this.driveMotors[driveMotorName.ordinal()].getCurrentPosition());
             }
-            this.opMode.telemetry.update();
+            updateTelemetry();
         }
 
         this.stopDrive();
@@ -141,7 +144,7 @@ public abstract class baseRobot {
 
         IMU imu = opMode.hardwareMap.get(IMU.class, "imu");
         boolean worked = imu.initialize(imuParameters);
-        opMode.telemetry.addData("IMU Initialized Goodly?", worked); opMode.telemetry.update();
+        writeToTelemetry("IMU Initialized Goodly?", worked); updateTelemetry();
 
         return imu;
     }
@@ -166,5 +169,15 @@ public abstract class baseRobot {
      */
     public double getImuAngle() {
         return this.imu.getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.RADIANS).thirdAngle;
+    }
+
+    public void writeToTelemetry(String caption, Object value){
+        this.opMode.telemetry.addData(caption, value);
+        packet.put(caption, value);
+    }
+
+    public void updateTelemetry(){
+        this.opMode.telemetry.update();
+        dashboard.sendTelemetryPacket(packet);
     }
 }
