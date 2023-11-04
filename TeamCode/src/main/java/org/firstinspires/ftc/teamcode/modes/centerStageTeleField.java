@@ -12,12 +12,12 @@ import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 import org.firstinspires.ftc.teamcode.structures.Pose;
 
-@TeleOp(name="Teleop Controls (Field)", group ="CenterStage")
+@TeleOp(name="TeleOp Controls (Field)", group ="CenterStage")
 public class centerStageTeleField extends LinearOpMode {
     private constants.OrientationMode orientationMode = constants.OrientationMode.FIELD;
     private centerStageRobot robot;
 
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         robot = new centerStageRobot(this);
         double referenceAngle = robot.getImuAngle();
         int tmp_deadzoneadjust = 2;
@@ -36,7 +36,7 @@ public class centerStageTeleField extends LinearOpMode {
             double rotatedStickX = rotatedPosition.getX();
             double rotatedStickY = rotatedPosition.getY();
             Orientation orientation = robot.getImu().getRobotOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.RADIANS);
-            telemetry.addData("IMU DATA (rads):", orientation);
+            robot.writeToTelemetry("IMU DATA (rads):", orientation);
 
             double maxPower = Math.max(Math.abs(rotatedStickY) + Math.abs(rotatedStickX) + Math.abs(stickRotation), 1);
 
@@ -45,14 +45,14 @@ public class centerStageTeleField extends LinearOpMode {
             double rightFrontPower  = (rotatedStickY - rotatedStickX - stickRotation) / maxPower * speed;
             double rightBackPower  = (rotatedStickY + rotatedStickX - stickRotation) / maxPower * speed;
 
-            telemetry.addData("LeftMotorPower", leftFrontPower);
-            telemetry.addData("LeftBackPower", leftBackPower);
-            telemetry.addData("RightFrontPower", rightFrontPower);
-            telemetry.addData("RightBackPower", rightBackPower);
+            robot.writeToTelemetry("LeftMotorPower", leftFrontPower);
+            robot.writeToTelemetry("LeftBackPower", leftBackPower);
+            robot.writeToTelemetry("RightFrontPower", rightFrontPower);
+            robot.writeToTelemetry("RightBackPower", rightBackPower);
 
             robot.setDriveMotors(new double[] {leftFrontPower, leftBackPower, rightFrontPower, rightBackPower}, DcMotor.RunMode.RUN_USING_ENCODER);
 
-            telemetry.update();
+            robot.updateTelemetry();
         }
     }
 }

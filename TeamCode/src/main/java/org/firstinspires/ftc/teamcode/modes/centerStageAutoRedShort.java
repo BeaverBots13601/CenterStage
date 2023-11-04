@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
+import org.firstinspires.ftc.teamcode.robot.constants;
 
 @Autonomous(name="EncoderAutonomousRedClose", group="CenterStage")
 public class centerStageAutoRedShort extends LinearOpMode {
@@ -14,9 +15,10 @@ public class centerStageAutoRedShort extends LinearOpMode {
         if (opModeIsActive()) {
             robot.driveInches(24, .5);
             // push thing in here
-            //here
+            robot.driveInches(constants.AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
 
             robot.driveInches(-21, .5);
+
             robot.turnDegrees(90, .5);
             robot.driveInches(24, .5);
             robot.turnDegrees(-90, .5);
