@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robot;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -30,6 +31,13 @@ public class centerStageRobot extends baseRobot {
         // todo: I think this camera can go up to 1920x1080 & 60fps. Not sure, test maybe?
         this.camera = setUpCamera(constants.CAMERA_NAME, constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT);
         dashboard.startCameraStream(camera, 60);
+    private DcMotorEx armMotor;
+    private double holdMotorPower = 0.2;
+
+    public centerStageRobot(LinearOpMode opmode) {
+        super(opmode, 3.5, 13.75);
+
+        //this.armMotor = createDefaultMotor("armMotor");
     }
 
     public void driveStrafe(double inches, double power) {
@@ -85,4 +93,6 @@ public class centerStageRobot extends baseRobot {
     public OpenCvCamera getCamera() {
         return camera;
     }
+    // servo specs: GoBilda 2000 Series Dual Mode Servo (25-3, Speed)
+    // SKU: 2000-0025-0003
 }

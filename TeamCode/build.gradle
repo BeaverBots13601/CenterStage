@@ -32,3 +32,4 @@ dependencies {
 repositories {
     maven { url = 'https://maven.brott.dev/' }
 }
+

@@ -29,6 +29,7 @@ public abstract class baseRobot {
     public final FtcDashboard dashboard = FtcDashboard.getInstance();
     private TelemetryPacket packet = new TelemetryPacket();
     //private ElapsedTime timer;
+    private final TelemetryPacket packet = new TelemetryPacket();
 
     public baseRobot(LinearOpMode opmode, double wheelDiameter, double robotDiameter) {
         this.opMode = opmode;
@@ -70,6 +71,7 @@ public abstract class baseRobot {
         for (constants.driveMotorName driveMotorName : constants.driveMotorName.values()) {
             this.driveMotors[driveMotorName.ordinal()].setMode(mode);
             this.driveMotors[driveMotorName.ordinal()].setPower(powers[driveMotorName.ordinal()]);
+            writeToTelemetry("set ", driveMotorName.name() + ": " + powers[driveMotorName.ordinal()]);
         }
     }
 
@@ -185,5 +187,6 @@ public abstract class baseRobot {
         //opMode.hardwareMap.voltageSensor.get(""); fixme get voltage readings
         dashboard.sendTelemetryPacket(packet);
         packet = new TelemetryPacket();
+        dashboard.sendTelemetryPacket(packet);
     }
 }
