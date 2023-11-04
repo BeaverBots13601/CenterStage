@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
+import org.firstinspires.ftc.teamcode.robot.constants;
 
 @TeleOp(name="TeleOp Controls (Robot)", group ="CenterStage")
 public class centerStageTeleRobot extends LinearOpMode {
@@ -13,7 +14,6 @@ public class centerStageTeleRobot extends LinearOpMode {
     public void runOpMode() {
         robot = new centerStageRobot(this);
         int tmp_deadzoneadjust = 2;
-        double speed = 0.65;
 
         waitForStart();
 
@@ -25,10 +25,10 @@ public class centerStageTeleRobot extends LinearOpMode {
 
             double maxPower = Math.max(Math.abs(stickY) + Math.abs(stickX) + Math.abs(stickRotation), 1);
 
-            double leftFrontPower  = (stickY + stickX + stickRotation) / maxPower * speed;
-            double leftBackPower  = (stickY - stickX + stickRotation) / maxPower * speed;
-            double rightFrontPower  = (stickY - stickX - stickRotation) / maxPower * speed;
-            double rightBackPower  = (stickY + stickX - stickRotation) / maxPower * speed;
+            double leftFrontPower  = (stickY + stickX + stickRotation) / maxPower * constants.NORMAL_SPEED;
+            double leftBackPower  = (stickY - stickX + stickRotation) / maxPower * constants.NORMAL_SPEED;
+            double rightFrontPower  = (stickY - stickX - stickRotation) / maxPower * constants.NORMAL_SPEED;
+            double rightBackPower  = (stickY + stickX - stickRotation) / maxPower * constants.NORMAL_SPEED;
 
             robot.writeToTelemetry("LeftMotorPower", leftFrontPower);
             robot.writeToTelemetry("LeftBackPower", leftBackPower);
