@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -27,7 +26,7 @@ public abstract class baseRobot {
     private final double robotDiameter;
     private final IMU imu;
     public final FtcDashboard dashboard = FtcDashboard.getInstance();
-    private final TelemetryPacket packet = new TelemetryPacket();
+    private TelemetryPacket packet = new TelemetryPacket();
 
     public baseRobot(LinearOpMode opmode, double wheelDiameter, double robotDiameter) {
         super();
@@ -179,5 +178,6 @@ public abstract class baseRobot {
     public void updateTelemetry(){
         this.opMode.telemetry.update();
         dashboard.sendTelemetryPacket(packet);
+        packet = new TelemetryPacket();
     }
 }
