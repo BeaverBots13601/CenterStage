@@ -1,14 +1,21 @@
 package org.firstinspires.ftc.teamcode.robot;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.structures.AprilTagData;
 
 import java.util.Arrays;
 
 public class centerStageRobot extends baseRobot {
+    private DcMotorEx armMotor;
+    private double holdMotorPower = 0.2;
+
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
+
+        //this.armMotor = createDefaultMotor("armMotor");
     }
 
     public void driveStrafe(double inches, double power) {
@@ -22,5 +29,9 @@ public class centerStageRobot extends baseRobot {
     public AprilTagData[] identifyTags() {
         return new AprilTagData[] {};
     }
-    // alaister do packing list & physical field mode switch
+
+    // servo specs: GoBilda 2000 Series Dual Mode Servo (25-3, Speed)
+    // SKU: 2000-0025-0003
+
+
 }
