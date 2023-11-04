@@ -21,7 +21,6 @@ public class centerStageTeleField extends LinearOpMode {
         robot = new centerStageRobot(this);
         double referenceAngle = robot.getImuAngle();
         int tmp_deadzoneadjust = 2;
-        double speed = 0.65;
 
         waitForStart();
 
@@ -40,10 +39,10 @@ public class centerStageTeleField extends LinearOpMode {
 
             double maxPower = Math.max(Math.abs(rotatedStickY) + Math.abs(rotatedStickX) + Math.abs(stickRotation), 1);
 
-            double leftFrontPower  = (rotatedStickY + rotatedStickX + stickRotation) / maxPower * speed;
-            double leftBackPower  = (rotatedStickY - rotatedStickX + stickRotation) / maxPower * speed;
-            double rightFrontPower  = (rotatedStickY - rotatedStickX - stickRotation) / maxPower * speed;
-            double rightBackPower  = (rotatedStickY + rotatedStickX - stickRotation) / maxPower * speed;
+            double leftFrontPower  = (rotatedStickY + rotatedStickX + stickRotation) / maxPower * constants.NORMAL_SPEED;
+            double leftBackPower  = (rotatedStickY - rotatedStickX + stickRotation) / maxPower * constants.NORMAL_SPEED;
+            double rightFrontPower  = (rotatedStickY - rotatedStickX - stickRotation) / maxPower * constants.NORMAL_SPEED;
+            double rightBackPower  = (rotatedStickY + rotatedStickX - stickRotation) / maxPower * constants.NORMAL_SPEED;
 
             robot.writeToTelemetry("LeftMotorPower", leftFrontPower);
             robot.writeToTelemetry("LeftBackPower", leftBackPower);
