@@ -15,6 +15,7 @@ public class centerStageAutoRedShort extends LinearOpMode {
         if (opModeIsActive()) {
             robot.driveInches(24, .5);
             // push thing in here
+            sleep(1000);
             robot.driveInches(constants.AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
 
             robot.driveInches(-21, .5);

@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -27,17 +28,22 @@ public abstract class baseRobot {
     private final IMU imu;
     public final FtcDashboard dashboard = FtcDashboard.getInstance();
     private TelemetryPacket packet = new TelemetryPacket();
+    //private ElapsedTime timer;
 
     public baseRobot(LinearOpMode opmode, double wheelDiameter, double robotDiameter) {
         super();
         this.opMode = opmode;
         this.driveMotors = new DcMotorEx[constants.driveMotorName.values().length];
         this.opMode.telemetry.setMsTransmissionInterval(constants.TELEMETRY_MS_TRANSMISSION_INTERVAL);
-        createDriveMotors();
+        //createDriveMotors();
 
         this.wheelDiameter= wheelDiameter;
         this.robotDiameter = robotDiameter;
         this.imu = createImu();
+
+        initBulkReads();
+
+        //this.timer = new ElapsedTime();
 
         writeToTelemetry(">", "Hardware Initialized");
         updateTelemetry();
@@ -177,6 +183,8 @@ public abstract class baseRobot {
 
     public void updateTelemetry(){
         this.opMode.telemetry.update();
+        //writeToTelemetry("Elapsed Time (s): ", timer.milliseconds() / 1000); fixme later
+        //opMode.hardwareMap.voltageSensor.get(""); fixme get voltage readings
         dashboard.sendTelemetryPacket(packet);
         packet = new TelemetryPacket();
     }
