@@ -12,6 +12,7 @@ public class centerStageRobot extends baseRobot {
     private DcMotorEx armMotor;
     private double holdMotorPower = 0.2;
 
+
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
 

@@ -20,12 +20,14 @@ public class constants {
 
     public static double AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 4.5;
 
+    // todo find way to condense these into single enum? or otherwise make not bad
     public enum SPEEDS {
         NORMAL,
         FAST,
+        SLOW,
         CUSTOM_FTC_DASHBOARD
     }
-
+    public static final double SLOW_SPEED = 0.4;
     public static final double NORMAL_SPEED = 0.65;
     public static final double FAST_SPEED = 0.85;
     public static double CUSTOM_FTC_DASHBOARD_SPEED = 0.65;

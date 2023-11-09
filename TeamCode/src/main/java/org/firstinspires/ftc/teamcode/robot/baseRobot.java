@@ -35,7 +35,7 @@ public abstract class baseRobot {
         this.opMode = opmode;
         this.driveMotors = new DcMotorEx[constants.driveMotorName.values().length];
         this.opMode.telemetry.setMsTransmissionInterval(constants.TELEMETRY_MS_TRANSMISSION_INTERVAL);
-        //createDriveMotors();
+        createDriveMotors();
 
         this.wheelDiameter= wheelDiameter;
         this.robotDiameter = robotDiameter;
@@ -71,7 +71,6 @@ public abstract class baseRobot {
         for (constants.driveMotorName driveMotorName : constants.driveMotorName.values()) {
             this.driveMotors[driveMotorName.ordinal()].setMode(mode);
             this.driveMotors[driveMotorName.ordinal()].setPower(powers[driveMotorName.ordinal()]);
-            writeToTelemetry("set ", driveMotorName.name() + ": " + powers[driveMotorName.ordinal()]);
         }
     }
 
