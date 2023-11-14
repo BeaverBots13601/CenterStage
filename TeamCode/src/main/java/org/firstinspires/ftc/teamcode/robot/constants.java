@@ -29,6 +29,8 @@ public class constants {
     }
     public static final double SLOW_SPEED = 0.4;
     public static final double NORMAL_SPEED = 0.65;
-    public static final double FAST_SPEED = 0.85;
+    public static final double FAST_SPEED = 0.80;
+    // This speed is designed to be set within FTC Dashboard.
     public static double CUSTOM_FTC_DASHBOARD_SPEED = 0.65;
+    public static SPEEDS currentSpeedMode = SPEEDS.NORMAL;
 }

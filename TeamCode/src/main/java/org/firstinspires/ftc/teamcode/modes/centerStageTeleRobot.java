@@ -11,56 +11,25 @@ import org.firstinspires.ftc.teamcode.robot.constants;
 @TeleOp(name="TeleOp Controls (Robot)", group ="CenterStage")
 public class centerStageTeleRobot extends LinearOpMode {
     private centerStageRobot robot;
-    private Gamepad previousGamepad;
-    private constants.SPEEDS currentSpeed = constants.SPEEDS.NORMAL;
+    private Gamepad currentGamepad = new Gamepad();
+    private Gamepad previousGamepad = new Gamepad();
 
     public void runOpMode() {
         robot = new centerStageRobot(this);
         int tmp_deadzoneadjust = 2;
-
+        previousGamepad.copy(currentGamepad);
         waitForStart();
 
-
         while(opModeIsActive()){
-            Gamepad currentGamepad = gamepad1;
-
-            if(currentGamepad.dpad_up && !previousGamepad.dpad_up){
-                // shift up if not already at highest speed. If in custom FTC dashboard, go to normal
-                switch(currentSpeed){
-                    case FAST:
-                    case NORMAL:
-                        currentSpeed = constants.SPEEDS.FAST;
-                        break;
-                    case CUSTOM_FTC_DASHBOARD:
-                    case SLOW:
-                        currentSpeed = constants.SPEEDS.NORMAL;
-                        break;
-                }
-            }
-            if(currentGamepad.dpad_down && !previousGamepad.dpad_down){
-                // shift down if not already at lowest. If in FTC dashboard, go to normal
-                switch (currentSpeed){
-                    case CUSTOM_FTC_DASHBOARD:
-                    case FAST:
-                        currentSpeed = constants.SPEEDS.NORMAL;
-                        break;
-                    case NORMAL:
-                    case SLOW:
-                        currentSpeed = constants.SPEEDS.SLOW;
-                }
-            }
-            // todo make this only work while dashboard is running (if thats possible)
-            if(currentGamepad.dpad_left && !previousGamepad.dpad_left){
-                // go to custom ftc dashboard speed
-                currentSpeed = constants.SPEEDS.CUSTOM_FTC_DASHBOARD;
-            }
+            currentGamepad.copy(gamepad1);
+            updateButtons(currentGamepad);
 
             double speedNow;
-            switch (currentSpeed){
+            switch (constants.currentSpeedMode){
                 case SLOW:
                     speedNow = constants.SLOW_SPEED;
                     break;
-                default: // this errors if doesn't have it idk why
+                default: // we really shouldn't need this but it errors if we don't have it
                 case NORMAL:
                     speedNow = constants.NORMAL_SPEED;
                     break;
@@ -87,12 +56,28 @@ public class centerStageTeleRobot extends LinearOpMode {
             robot.writeToTelemetry("LeftBackPower", leftBackPower);
             robot.writeToTelemetry("RightFrontPower", rightFrontPower);
             robot.writeToTelemetry("RightBackPower", rightBackPower);
+            robot.writeToTelemetry("Current Speed Mode", constants.currentSpeedMode);
 
             robot.setDriveMotors(new double[] {leftFrontPower, leftBackPower, rightFrontPower, rightBackPower}, DcMotor.RunMode.RUN_USING_ENCODER);
 
             robot.updateTelemetry();
 
-            previousGamepad = currentGamepad;
+            previousGamepad.copy(currentGamepad);
+        }
+    }
+    private void updateButtons(Gamepad currentGamepad){
+        if(currentGamepad.dpad_up && !previousGamepad.dpad_up){
+            constants.currentSpeedMode = constants.SPEEDS.FAST;
+        }
+        if(currentGamepad.dpad_right && !previousGamepad.dpad_right){
+            constants.currentSpeedMode = constants.SPEEDS.NORMAL;
+        }
+        if(currentGamepad.dpad_down && !previousGamepad.dpad_down){
+            constants.currentSpeedMode = constants.SPEEDS.SLOW;
+        }
+        if(currentGamepad.dpad_left && !previousGamepad.dpad_left){
+            // todo make this only work while dashboard is running (if thats possible)
+            constants.currentSpeedMode = constants.SPEEDS.CUSTOM_FTC_DASHBOARD;
         }
     }
 }
