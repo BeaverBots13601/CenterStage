@@ -13,6 +13,7 @@ public class centerStageTeleRobot extends LinearOpMode {
     private centerStageRobot robot;
     private Gamepad currentGamepad = new Gamepad();
     private Gamepad previousGamepad = new Gamepad();
+    private boolean servoOpen = false;
 
     public void runOpMode() {
         robot = new centerStageRobot(this);
@@ -78,6 +79,18 @@ public class centerStageTeleRobot extends LinearOpMode {
         if(currentGamepad.dpad_left && !previousGamepad.dpad_left){
             // todo make this only work while dashboard is running (if thats possible)
             constants.currentSpeedMode = constants.SPEEDS.CUSTOM_FTC_DASHBOARD;
+        }
+        if(currentGamepad.options && !previousGamepad.options){
+            // pal
+            robot.getPALServo().setPosition((constants.PAL_ROTATION_DEGREES / 300)); // # of degrees, out of 300 DOM
+        }
+        if(currentGamepad.right_bumper && !previousGamepad.right_bumper){
+            // servo on/off
+            if(servoOpen){
+                robot.getKnockerServo().setPosition(-(constants.KNOCKER_ROTATION_DEGREES / 300));
+            } else {
+                robot.getKnockerServo().setPosition((constants.KNOCKER_ROTATION_DEGREES / 300));
+            }
         }
     }
 }
