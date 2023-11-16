@@ -8,7 +8,7 @@ public class constants {
     public static int FAR_WAIT_TEAMMATE_MILLISECONDS = 7500;
 
     public enum driveMotorName {
-        leftFront, leftBack, rightFront, rightBack;
+        leftFront, leftBack, rightFront, rightBack
 
     }
     public enum OrientationMode {
@@ -32,5 +32,19 @@ public class constants {
     public static final double FAST_SPEED = 0.80;
     // This speed is designed to be set within FTC Dashboard.
     public static double CUSTOM_FTC_DASHBOARD_SPEED = 0.65;
+    // Default speed mode is set here; we can adjust it from FTCDashboard this way
     public static SPEEDS currentSpeedMode = SPEEDS.NORMAL;
+
+    public static final String KNOCKER_SERVO_NAME = "knockerServo";
+    public static final String PAL_SERVO_NAME = "PALServo";
+
+    // Must be less than 300. Only 300 Deg of Motion on the
+    public static double KNOCKER_ROTATION_DEGREES = 135;
+    public static double PAL_ROTATION_DEGREES = 120;
+
+
+    // Camera data
+    public static final String CAMERA_NAME = "camera";
+    public static final int CAMERA_WIDTH = 1280;
+    public static final int CAMERA_HEIGHT = 720;
 }

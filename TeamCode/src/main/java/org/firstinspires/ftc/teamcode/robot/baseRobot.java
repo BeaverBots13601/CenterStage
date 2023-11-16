@@ -22,7 +22,7 @@ import java.util.List;
 public abstract class baseRobot {
 
     DcMotorEx[] driveMotors;
-    private LinearOpMode opMode;
+    protected LinearOpMode opMode;
     private final double wheelDiameter;
     private final double robotDiameter;
     private final IMU imu;
@@ -31,7 +31,6 @@ public abstract class baseRobot {
     //private ElapsedTime timer;
 
     public baseRobot(LinearOpMode opmode, double wheelDiameter, double robotDiameter) {
-        super();
         this.opMode = opmode;
         this.driveMotors = new DcMotorEx[constants.driveMotorName.values().length];
         this.opMode.telemetry.setMsTransmissionInterval(constants.TELEMETRY_MS_TRANSMISSION_INTERVAL);

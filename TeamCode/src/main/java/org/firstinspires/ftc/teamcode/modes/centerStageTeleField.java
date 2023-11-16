@@ -19,6 +19,7 @@ public class centerStageTeleField extends LinearOpMode {
     private centerStageRobot robot;
     private Gamepad currentGamepad = new Gamepad();
     private Gamepad previousGamepad = new Gamepad();
+    private boolean servoOpen = false;
 
     public void runOpMode() {
         robot = new centerStageRobot(this);
@@ -30,7 +31,7 @@ public class centerStageTeleField extends LinearOpMode {
 
         while(opModeIsActive()){
             currentGamepad.copy(gamepad1);
-            updateButtons(currentGamepad);
+            updateButtons(currentGamepad, previousGamepad);
 
             double speedNow;
             switch (constants.currentSpeedMode){
@@ -81,7 +82,7 @@ public class centerStageTeleField extends LinearOpMode {
             previousGamepad.copy(currentGamepad);
         }
     }
-    private void updateButtons(Gamepad currentGamepad){
+    private void updateButtons(Gamepad currentGamepad, Gamepad previousGamepad){
         if(currentGamepad.dpad_up && !previousGamepad.dpad_up){
             constants.currentSpeedMode = constants.SPEEDS.FAST;
         }
@@ -94,6 +95,18 @@ public class centerStageTeleField extends LinearOpMode {
         if(currentGamepad.dpad_left && !previousGamepad.dpad_left){
             // todo make this only work while dashboard is running (if thats possible)
             constants.currentSpeedMode = constants.SPEEDS.CUSTOM_FTC_DASHBOARD;
+        }
+        if(currentGamepad.options && !previousGamepad.options){
+            // pal
+            robot.getPALServo().setPosition((constants.PAL_ROTATION_DEGREES / 300)); // # of degrees, out of 300 DOM
+        }
+        if(currentGamepad.right_bumper && !previousGamepad.right_bumper){
+            // servo on/off
+            if(servoOpen){
+                robot.getKnockerServo().setPosition(-(constants.KNOCKER_ROTATION_DEGREES / 300));
+            } else {
+                robot.getKnockerServo().setPosition((constants.KNOCKER_ROTATION_DEGREES / 300));
+            }
         }
     }
 }
