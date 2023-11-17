@@ -22,14 +22,14 @@ public class centerStageRobot extends baseRobot {
 
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
-        this.knockerServo =  setUpServo(constants.KNOCKER_SERVO_NAME);
-        this.PALServo = setUpServo(constants.PAL_SERVO_NAME);
+        this.knockerServo = setUpServo(constants.KNOCKER_SERVO_NAME);
+        //this.PALServo = setUpServo(constants.PAL_SERVO_NAME);
 
-        this.grappleMotor = createDefaultMotor("grappleMotor");
+        //this.grappleMotor = createDefaultMotor("grappleMotor");
 
         // todo: I think this camera can go up to 1920x1080 & 60fps. Not sure, test maybe?
         this.camera = setUpCamera(constants.CAMERA_NAME, constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT);
-        dashboard.startCameraStream(camera, 30);
+        dashboard.startCameraStream(camera, 60);
     }
 
     public void driveStrafe(double inches, double power) {
@@ -44,8 +44,6 @@ public class centerStageRobot extends baseRobot {
         return new AprilTagData[] {};
     }
 
-    // servo specs: GoBilda 2000 Series Dual Mode Servo (25-3, Speed)
-    // SKU: 2000-0025-0003
 
     private Servo setUpServo(String servoName){
         Servo servo = opMode.hardwareMap.get(Servo.class, servoName);
@@ -53,6 +51,8 @@ public class centerStageRobot extends baseRobot {
     }
 
     public Servo getKnockerServo(){
+        // servo specs: GoBilda 2000 Series Dual Mode Servo (25-2, Torque)
+        // SKU: 2000-0025-0002
         return knockerServo;
     }
 
