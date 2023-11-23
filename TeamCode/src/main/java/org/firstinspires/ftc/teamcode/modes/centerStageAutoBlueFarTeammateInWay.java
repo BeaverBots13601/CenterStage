@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 
+// todo test and reenable
 @Disabled
 @Autonomous(name="AutonomousBlueFarTeammateInCorner", group="CenterStage")
 public class centerStageAutoBlueFarTeammateInWay extends LinearOpMode {
