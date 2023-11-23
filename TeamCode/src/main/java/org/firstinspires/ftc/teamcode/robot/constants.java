@@ -47,4 +47,10 @@ public class constants {
     public static final String CAMERA_NAME = "camera";
     public static final int CAMERA_WIDTH = 1280;
     public static final int CAMERA_HEIGHT = 720;
+
+    /**
+     * The percentage, from [0, 1.0], at which values equal to or below will not be used to determine the location of the team prop.
+     * Ex. If the highest percentage of color is the center area at 8%, and the value is at 0.1, it will be declared 'unknown' instead of 'center'.
+     */
+    public static double COLOR_UNKNOWN_THRESHOLD_PERCENT = 0.1;
 }
