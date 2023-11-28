@@ -18,7 +18,9 @@ public class constants {
     public static final double ENCODER_TICKS = 537.70;
     public static final int TELEMETRY_MS_TRANSMISSION_INTERVAL = 25;
 
-    public static double AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 4.5;
+    // Autonomous constants
+    public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 4.5;
+    public static double SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 0;
 
     // todo find way to condense these into single enum? or otherwise make not bad
     public enum SPEEDS {
@@ -53,4 +55,5 @@ public class constants {
      * Ex. If the highest percentage of color is the center area at 8%, and the value is at 0.1, it will be declared 'unknown' instead of 'center'.
      */
     public static double COLOR_UNKNOWN_THRESHOLD_PERCENT = 0.1;
+    public static double DETECTION_BOX_OFFSET_SIDES_PX = 128;
 }

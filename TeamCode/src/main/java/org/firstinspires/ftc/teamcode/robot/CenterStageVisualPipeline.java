@@ -13,8 +13,8 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
     static final double SQUARE_SIZE_PX = 75;
     // If the camera size is too small, these boxes could end up overlapping and causing problems. For the 22-23 and 23-24 years, the camera was 1280x720.
     static final Rect LeftROI = new Rect(
-            new Point(0, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
-            new Point(SQUARE_SIZE_PX, constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
+            new Point(constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
+            new Point(SQUARE_SIZE_PX+ constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
     );
     static final Rect CenterROI = new Rect(
             new Point(constants.CAMERA_WIDTH / 2.0 - SQUARE_SIZE_PX / 2.0,
@@ -23,8 +23,8 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
                     constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
     );
     static final Rect RightROI = new Rect(
-            new Point(constants.CAMERA_WIDTH - SQUARE_SIZE_PX, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
-            new Point(constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
+            new Point(constants.CAMERA_WIDTH - SQUARE_SIZE_PX - constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
+            new Point(constants.CAMERA_WIDTH - constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
     );
     static final double HUE_DIFF = 15;
     static final double SAT_DIFF = 205;
@@ -85,22 +85,28 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
             double rightBluePercentage = Core.sumElems(box).val[0] / RightROI.area() / 255;
 
             double max = Math.max(leftBluePercentage, Math.max(centerBluePercentage, rightBluePercentage));
+            // The box most detected is made purple
             if(max <= constants.COLOR_UNKNOWN_THRESHOLD_PERCENT){
-                // Not sure if this will ever actually do anything, but because there is more of a variance in areas I want to avoid possible bad readings
                 propLocation = PropLocation.UNKNOWN;
+                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255));
             } else if (max == leftBluePercentage) {
                 propLocation = PropLocation.LEFT;
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 255));
+                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255));
             } else if (max == centerBluePercentage) {
                 propLocation = PropLocation.CENTER;
+                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 255));
+                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255));
             } else if (max == rightBluePercentage) {
                 propLocation = PropLocation.RIGHT;
+                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 255));
             }
-
-            // I think this color input is RGB, but not 100% sure. Check later if wrong
-            // todo: Want some visual indicator for when a object is detected - filled square maybe?
-            Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
-            Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255));
-            Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255));
         } else {
             // must be red
             Mat box;
@@ -138,17 +144,25 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
             double max = Math.max(leftRedPercentage, Math.max(centerRedPercentage, rightRedPercentage));
             if(max <= constants.COLOR_UNKNOWN_THRESHOLD_PERCENT){
                 propLocation = PropLocation.UNKNOWN;
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0));
             } else if (max == leftRedPercentage) {
                 propLocation = PropLocation.LEFT;
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 255));
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0));
             } else if (max == centerRedPercentage) {
                 propLocation = PropLocation.CENTER;
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 255));
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0));
             } else if (max == rightRedPercentage) {
                 propLocation = PropLocation.RIGHT;
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 255));
             }
-
-            Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0));
-            Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0));
-            Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0));
         }
         return input;
     }

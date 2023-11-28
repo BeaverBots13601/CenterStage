@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.robot.CenterStageVisualPipeline;
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 
@@ -11,16 +12,34 @@ import org.firstinspires.ftc.teamcode.robot.constants;
 @Disabled
 @Autonomous(name="AutonomousRedFarTeammateInCorner", group="CenterStage")
 public class centerStageAutoRedFarTeammateInWay extends LinearOpMode {
+    private CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.RED);
+    private CenterStageVisualPipeline.PropLocation loc;
+    private int iterations = 0;
+
     public void runOpMode() {
         centerStageRobot robot = new centerStageRobot(this);
         waitForStart();
 
         if (opModeIsActive()) {
-            //gets to team prop location area
-            robot.driveInches(24, .5);
             sleep(1000);
-            //fill in area with code for detecting prop and putting pixel
-            robot.driveInches(constants.AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .3);
+            while(line.getLastPropLocation() == CenterStageVisualPipeline.PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
+            loc = line.getLastPropLocation();
+            robot.driveInches(24, .5);
+            // push thing in here
+            if(loc == CenterStageVisualPipeline.PropLocation.LEFT){
+                robot.turnDegrees(-90, .5);
+                robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+                robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+                robot.turnDegrees(90, .5);
+            } else if(loc == CenterStageVisualPipeline.PropLocation.CENTER || loc == CenterStageVisualPipeline.PropLocation.UNKNOWN) {
+                // center and fallback
+                robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
+            } else if(loc == CenterStageVisualPipeline.PropLocation.RIGHT) {
+                robot.turnDegrees(90, .5);
+                robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+                robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+                robot.turnDegrees(-90, .5);
+            }
 
             // sleep to avoid hitting our teammate
             sleep(constants.FAR_WAIT_TEAMMATE_MILLISECONDS);
