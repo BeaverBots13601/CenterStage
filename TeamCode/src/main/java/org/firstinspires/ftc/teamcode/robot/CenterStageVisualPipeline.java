@@ -24,7 +24,7 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
     );
     static final Rect RightROI = new Rect(
             new Point(constants.CAMERA_WIDTH - SQUARE_SIZE_PX, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
-            new Point(constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0)
+            new Point(constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
     );
     static final double HUE_DIFF = 15;
     static final double SAT_DIFF = 205;
