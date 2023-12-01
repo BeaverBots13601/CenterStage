@@ -16,37 +16,35 @@ public class centerStageAutoBlueShort extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         centerStageRobot robot = new centerStageRobot(this);
-        waitForStart();
         robot.getCamera().setPipeline(line);
+        waitForStart();
+        sleep(1000);
 
-        if (opModeIsActive()) {
-            sleep(1000);
-            while(line.getLastPropLocation() == PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
-            loc = line.getLastPropLocation();
-            robot.driveInches(24, .5);
-            // push thing in here
-            if(loc == PropLocation.LEFT){
-                robot.turnDegrees(-90, .5);
-                robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.turnDegrees(90, .5);
-            } else if(loc == PropLocation.CENTER || loc == PropLocation.UNKNOWN) {
-                // center and fallback
-                robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
-            } else if(loc == PropLocation.RIGHT) {
-                robot.turnDegrees(90, .5);
-                robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.turnDegrees(-90, .5);
-            }
-
-            robot.driveInches(-21, .5);
+        while(line.getLastPropLocation() == PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
+        loc = line.getLastPropLocation();
+        robot.driveInches(24, .5);
+        // push thing in here
+        if(loc == PropLocation.LEFT){
             robot.turnDegrees(-90, .5);
-            robot.driveInches(24, .5);
+            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
             robot.turnDegrees(90, .5);
-            robot.driveInches(41, .5);
+        } else if(loc == PropLocation.CENTER || loc == PropLocation.UNKNOWN) {
+            // center and fallback
+            robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
+        } else if(loc == PropLocation.RIGHT) {
+            robot.turnDegrees(90, .5);
+            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
             robot.turnDegrees(-90, .5);
-            robot.driveInches(22, .5);
         }
+
+        robot.driveInches(-21, .5);
+        robot.turnDegrees(-90, .5);
+        robot.driveInches(24, .5);
+        robot.turnDegrees(90, .5);
+        robot.driveInches(41, .5);
+        robot.turnDegrees(-90, .5);
+        robot.driveInches(22, .5);
     }
 }

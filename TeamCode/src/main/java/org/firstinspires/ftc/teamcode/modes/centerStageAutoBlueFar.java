@@ -15,37 +15,35 @@ public class centerStageAutoBlueFar extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         centerStageRobot robot = new centerStageRobot(this);
-        waitForStart();
         robot.getCamera().setPipeline(line);
+        waitForStart();
 
-        if (opModeIsActive()) {
-            sleep(1000);
-            while(line.getLastPropLocation() == CenterStageVisualPipeline.PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
-            loc = line.getLastPropLocation();
-            robot.driveInches(24, .5);
-            // push thing in here
-            if(loc == CenterStageVisualPipeline.PropLocation.LEFT){
-                robot.turnDegrees(-90, .5);
-                robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.turnDegrees(90, .5);
-            } else if(loc == CenterStageVisualPipeline.PropLocation.CENTER || loc == CenterStageVisualPipeline.PropLocation.UNKNOWN) {
-                // center and fallback
-                robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
-            } else if(loc == CenterStageVisualPipeline.PropLocation.RIGHT) {
-                robot.turnDegrees(90, .5);
-                robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-                robot.turnDegrees(-90, .5);
-            }
-
-            // sleep to avoid hitting our teammate
-            sleep(constants.FAR_WAIT_TEAMMATE_MILLISECONDS);
-
-            //go to back board
-            robot.driveInches(-25, .5);
-            robot.turnDegrees(-90, .3);
-            robot.driveInches(85, .5);
+        sleep(1000);
+        while(line.getLastPropLocation() == CenterStageVisualPipeline.PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
+        loc = line.getLastPropLocation();
+        robot.driveInches(24, .5);
+        // push thing in here
+        if(loc == CenterStageVisualPipeline.PropLocation.LEFT){
+            robot.turnDegrees(-90, .5);
+            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.turnDegrees(90, .5);
+        } else if(loc == CenterStageVisualPipeline.PropLocation.CENTER || loc == CenterStageVisualPipeline.PropLocation.UNKNOWN) {
+            // center and fallback
+            robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
+        } else if(loc == CenterStageVisualPipeline.PropLocation.RIGHT) {
+            robot.turnDegrees(90, .5);
+            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.turnDegrees(-90, .5);
         }
+
+        // sleep to avoid hitting our teammate
+        sleep(constants.FAR_WAIT_TEAMMATE_MILLISECONDS);
+
+        //go to back board
+        robot.driveInches(-25, .5);
+        robot.turnDegrees(-90, .3);
+        robot.driveInches(85, .5);
     }
 }

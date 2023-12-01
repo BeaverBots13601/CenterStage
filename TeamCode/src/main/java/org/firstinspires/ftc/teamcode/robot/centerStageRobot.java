@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -18,15 +19,18 @@ public class centerStageRobot extends baseRobot {
     private Servo PALServo;
 
     private DcMotorEx grappleMotor;
+    private Servo grappleServo;
 
-    private OpenCvCamera camera;
+    private final OpenCvCamera camera;
 
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
-        this.knockerServo = setUpServo(constants.KNOCKER_SERVO_NAME);
-        //this.PALServo = setUpServo(constants.PAL_SERVO_NAME);
+        //this.knockerServo = setUpServo(constants.KNOCKER_SERVO_NAME);
+        this.grappleServo = setUpServo(constants.GRAPPLE_SERVO_NAME);
+        this.PALServo = setUpServo(constants.PAL_SERVO_NAME);
 
-        //this.grappleMotor = createDefaultMotor("grappleMotor");
+        this.grappleMotor = createDefaultMotor("grappleMotor");
+        this.grappleMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // todo: I think this camera can go up to 1920x1080 & 60fps. Not sure, test maybe?
         this.camera = setUpCamera(constants.CAMERA_NAME, constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT);
@@ -71,6 +75,8 @@ public class centerStageRobot extends baseRobot {
     public DcMotorEx getGrappleMotor(){
         return grappleMotor;
     }
+
+    public Servo getGrappleServo(){ return grappleServo; }
 
     private OpenCvCamera setUpCamera(String cameraName, int cameraWidth, int cameraHeight){
         // todo, What's the point of this intermediate step?

@@ -3,7 +3,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -20,6 +22,7 @@ public class centerStageTeleField extends LinearOpMode {
     private Gamepad currentGamepad = new Gamepad();
     private Gamepad previousGamepad = new Gamepad();
     private boolean servoOpen = false;
+    private boolean liftDown = true;
 
     public void runOpMode() {
         robot = new centerStageRobot(this);
@@ -98,17 +101,48 @@ public class centerStageTeleField extends LinearOpMode {
         }
         if(currentGamepad.options && !previousGamepad.options){
             // pal
-            robot.getPALServo().setPosition((constants.PAL_ROTATION_DEGREES / 300)); // # of degrees, out of 300 DOM
+            robot.getPALServo().setDirection(Servo.Direction.REVERSE);
+            robot.getPALServo().setPosition(.45);
+            //robot.getPALServo().setPosition((constants.PAL_ROTATION_DEGREES / 300)); // # of degrees, out of 300 DOM
         }
         if(currentGamepad.right_bumper && !previousGamepad.right_bumper){
             // servo on/off
             if(servoOpen){
+                robot.getGrappleServo().setDirection(Servo.Direction.REVERSE);
                 robot.getKnockerServo().setPosition(0); // reset to base position - have to make sure always in origin
                 servoOpen = false;
             } else {
+                robot.getGrappleServo().setDirection(Servo.Direction.FORWARD);
                 robot.getKnockerServo().setPosition((constants.KNOCKER_ROTATION_DEGREES / 300));
                 servoOpen = true;
             }
+        }
+        // Lift/Lower grapple lift
+        if(currentGamepad.left_bumper && !previousGamepad.left_bumper){
+            if(liftDown) {
+                //robot.getGrappleServo().setPosition(.45);
+                robot.getGrappleServo().setDirection(Servo.Direction.FORWARD);
+                robot.getGrappleServo().setPosition(.3);
+                robot.writeToTelemetry("Grapple Lift Up", true);
+                robot.updateTelemetry();
+                liftDown = false;
+            } else {
+                robot.getGrappleServo().setDirection(Servo.Direction.REVERSE);
+                robot.getGrappleServo().setPosition(.3);
+                robot.writeToTelemetry("Grapple Lift Up", false);
+                robot.updateTelemetry();
+                liftDown = true;
+            }
+        }
+        // Make robot hang itself
+        if(currentGamepad.share && !previousGamepad.share){
+            DcMotorEx motor = robot.getGrappleMotor();
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // fixme don't think this idea works
+            motor.setPower(0.95);
+            sleep(6000);
+            motor.setPower(0.5);
+            sleep(constants.GRAPPLE_WAIT_TIME_MS);
+            motor.setMotorDisable();
         }
     }
 }

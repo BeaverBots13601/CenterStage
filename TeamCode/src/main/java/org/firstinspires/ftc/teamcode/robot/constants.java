@@ -20,7 +20,7 @@ public class constants {
 
     // Autonomous constants
     public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 4.5;
-    public static double SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 0;
+    public static double SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 1.25;
 
     // todo find way to condense these into single enum? or otherwise make not bad
     public enum SPEEDS {
@@ -39,11 +39,15 @@ public class constants {
 
     public static final String KNOCKER_SERVO_NAME = "knockerServo";
     public static final String PAL_SERVO_NAME = "PALServo";
+    public static final String GRAPPLE_SERVO_NAME = "grappleServo";
 
     // Must be less than 300. Only 300 Deg of Motion on the
     public static double KNOCKER_ROTATION_DEGREES = 135;
     public static double PAL_ROTATION_DEGREES = 120;
 
+    // The time we wait and maintain motor power after the robot has successfully hung, in MS
+    // 5 min currently
+    public static int GRAPPLE_WAIT_TIME_MS = 300000;
 
     // Camera data
     public static final String CAMERA_NAME = "camera";
