@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.robot.CenterStageVisualPipeline;
 
 @Autonomous(name="Nothing But Can Break (Camera)")
 public class cameraTestingOpmode extends LinearOpMode {
-    private CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.RED);
+    private CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.BLUE);
     @Override
     public void runOpMode(){
         waitForStart();

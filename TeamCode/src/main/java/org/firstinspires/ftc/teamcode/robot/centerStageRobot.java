@@ -25,7 +25,8 @@ public class centerStageRobot extends baseRobot {
 
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
-        //this.knockerServo = setUpServo(constants.KNOCKER_SERVO_NAME);
+        this.knockerServo = setUpServo(constants.KNOCKER_SERVO_NAME);
+        this.knockerServo.setDirection(Servo.Direction.REVERSE);
         this.grappleServo = setUpServo(constants.GRAPPLE_SERVO_NAME);
         this.PALServo = setUpServo(constants.PAL_SERVO_NAME);
 
@@ -63,8 +64,8 @@ public class centerStageRobot extends baseRobot {
     }
 
     public Servo getKnockerServo(){
-        // servo specs: GoBilda 2000 Series Dual Mode Servo (25-2, Torque)
-        // SKU: 2000-0025-0002
+        // servo specs: GoBilda 2000 Series Dual Mode Servo (25-3, Speed)
+        // SKU: 2000-0025-0003
         return knockerServo;
     }
 

@@ -10,7 +10,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 public class CenterStageVisualPipeline extends OpenCvPipeline {
     //    Changes how "zoomed-in" the camera sees
-    static final double SQUARE_SIZE_PX = 75;
+    static final double SQUARE_SIZE_PX = 90; // og 75
     // If the camera size is too small, these boxes could end up overlapping and causing problems. For the 22-23 and 23-24 years, the camera was 1280x720.
     static final Rect LeftROI = new Rect(
             new Point(constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
@@ -86,6 +86,7 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
 
             double max = Math.max(leftBluePercentage, Math.max(centerBluePercentage, rightBluePercentage));
             // The box most detected is made purple
+            // todo these boxes need a thicker border
             if(max <= constants.COLOR_UNKNOWN_THRESHOLD_PERCENT){
                 propLocation = PropLocation.UNKNOWN;
                 Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
