@@ -89,24 +89,24 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
             // todo these boxes need a thicker border
             if(max <= constants.COLOR_UNKNOWN_THRESHOLD_PERCENT){
                 propLocation = PropLocation.UNKNOWN;
-                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
-                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255));
-                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255), 3);
             } else if (max == leftBluePercentage) {
                 propLocation = PropLocation.LEFT;
-                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 255));
-                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255));
-                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 255), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255), 3);
             } else if (max == centerBluePercentage) {
                 propLocation = PropLocation.CENTER;
-                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
-                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 255));
-                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255));
+                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 255), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(0, 0, 255), 3);
             } else if (max == rightBluePercentage) {
                 propLocation = PropLocation.RIGHT;
-                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255));
-                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255));
-                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 255));
+                Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(0, 0, 255), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 255), 3);
             }
         } else {
             // must be red
@@ -145,24 +145,24 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
             double max = Math.max(leftRedPercentage, Math.max(centerRedPercentage, rightRedPercentage));
             if(max <= constants.COLOR_UNKNOWN_THRESHOLD_PERCENT){
                 propLocation = PropLocation.UNKNOWN;
-                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0));
-                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0));
-                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0), 3);
             } else if (max == leftRedPercentage) {
                 propLocation = PropLocation.LEFT;
-                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 255));
-                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0));
-                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 255), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0), 3);
             } else if (max == centerRedPercentage) {
                 propLocation = PropLocation.CENTER;
-                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0));
-                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 255));
-                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0));
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 255), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 0), 3);
             } else if (max == rightRedPercentage) {
                 propLocation = PropLocation.RIGHT;
-                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0));
-                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0));
-                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 255));
+                Imgproc.rectangle(input, LeftROI, new Scalar(255, 0, 0), 3);
+                Imgproc.rectangle(input, CenterROI, new Scalar(255, 0, 0), 3);
+                Imgproc.rectangle(input, RightROI, new Scalar(255, 0, 255), 3);
             }
         }
         return input;

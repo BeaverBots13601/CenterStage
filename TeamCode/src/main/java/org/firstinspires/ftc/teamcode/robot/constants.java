@@ -19,8 +19,9 @@ public class constants {
     public static final int TELEMETRY_MS_TRANSMISSION_INTERVAL = 25;
 
     // Autonomous constants
-    public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 4.5;
-    public static double SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 1.25;
+    public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 3;
+    public static double LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 4.5;
+    public static double AUTO_BACKUP_EXTRA_DIST = 4;
 
     // todo find way to condense these into single enum? or otherwise make not bad
     public enum SPEEDS {

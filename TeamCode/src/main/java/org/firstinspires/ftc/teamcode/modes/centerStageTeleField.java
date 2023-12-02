@@ -137,7 +137,7 @@ public class centerStageTeleField extends LinearOpMode {
             DcMotorEx motor = robot.getGrappleMotor();
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // fixme don't think this idea works
             motor.setPower(0.95);
-            sleep(6000);
+            sleep(8000);
             motor.setPower(0.5);
             sleep(constants.GRAPPLE_WAIT_TIME_MS);
             motor.setMotorDisable();

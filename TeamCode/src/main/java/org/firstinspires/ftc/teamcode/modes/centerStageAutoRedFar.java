@@ -21,21 +21,25 @@ public class centerStageAutoRedFar extends LinearOpMode {
         sleep(1000);
         while(line.getLastPropLocation() == CenterStageVisualPipeline.PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
         loc = line.getLastPropLocation();
-        robot.driveInches(24, .5);
+        robot.driveInches(24, .25);
         // push thing in here
         if(loc == CenterStageVisualPipeline.PropLocation.LEFT){
-            robot.turnDegrees(-90, .5);
-            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.turnDegrees(90, .5);
+            robot.turnDegrees(-89, .25);
+            robot.driveInches(constants.LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            // TOTAL VALUE: 4.5 for both
+            robot.driveInches(-constants.LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.turnDegrees(89, .25);
         } else if(loc == CenterStageVisualPipeline.PropLocation.CENTER || loc == CenterStageVisualPipeline.PropLocation.UNKNOWN) {
             // center and fallback
+
+            // 3 inches forward
             robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
         } else if(loc == CenterStageVisualPipeline.PropLocation.RIGHT) {
-            robot.turnDegrees(90, .5);
-            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.turnDegrees(-90, .5);
+            robot.turnDegrees(89, .25);
+            robot.driveInches(2.5, .5);
+            // TOTAL VALUE: 2.5 forward, 4.5 backward
+            robot.driveInches(-4.5, .5);
+            robot.turnDegrees(-89, .25);
         }
 
         // sleep to avoid hitting our teammate

@@ -22,21 +22,21 @@ public class centerStageAutoBlueShort extends LinearOpMode {
 
         while(line.getLastPropLocation() == PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
         loc = line.getLastPropLocation();
-        robot.driveInches(24, .5);
+        robot.driveInches(24, .25);
         // push thing in here
         if(loc == PropLocation.LEFT){
-            robot.turnDegrees(-90, .5);
-            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.turnDegrees(90, .5);
+            robot.turnDegrees(-89, .25);
+            robot.driveInches(constants.LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.driveInches(-constants.LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.turnDegrees(89, .25);
         } else if(loc == PropLocation.CENTER || loc == PropLocation.UNKNOWN) {
             // center and fallback
             robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
         } else if(loc == PropLocation.RIGHT) {
-            robot.turnDegrees(90, .5);
-            robot.driveInches(constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.driveInches(-constants.SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.turnDegrees(-90, .5);
+            robot.turnDegrees(89, .25);
+            robot.driveInches(2.5, .5);
+            robot.driveInches(-4.5, .5);
+            robot.turnDegrees(-89, .25);
         }
 
         robot.driveInches(-21, .5);
@@ -45,6 +45,6 @@ public class centerStageAutoBlueShort extends LinearOpMode {
         robot.turnDegrees(90, .5);
         robot.driveInches(41, .5);
         robot.turnDegrees(-90, .5);
-        robot.driveInches(22, .5);
+        robot.driveInches(18, .5);
     }
 }
