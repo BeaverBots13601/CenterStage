@@ -22,7 +22,7 @@ public class centerStageAutoRedShort extends LinearOpMode {
         sleep(1000);
         while(line.getLastPropLocation() == PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
         loc = line.getLastPropLocation();
-        robot.driveInches(24, .25);
+        robot.driveInches(26, .25);
         // push thing in here
         if(loc == PropLocation.LEFT){
             robot.turnDegrees(-89, .25);
@@ -39,7 +39,7 @@ public class centerStageAutoRedShort extends LinearOpMode {
             robot.turnDegrees(-89, .25);
         }
 
-        robot.driveInches(-21, .5);
+        robot.driveInches(-22, .5);
 
         robot.turnDegrees(90, .5);
         robot.driveInches(24, .5);

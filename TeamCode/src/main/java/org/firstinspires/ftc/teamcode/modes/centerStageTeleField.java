@@ -15,6 +15,8 @@ import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 import org.firstinspires.ftc.teamcode.structures.Pose;
 
+import java.util.Objects;
+
 @TeleOp(name="TeleOp Controls (Field)", group ="CenterStage")
 public class centerStageTeleField extends LinearOpMode {
     private constants.OrientationMode orientationMode = constants.OrientationMode.FIELD;
@@ -26,9 +28,10 @@ public class centerStageTeleField extends LinearOpMode {
 
     public void runOpMode() {
         robot = new centerStageRobot(this);
-        double referenceAngle = robot.getImuAngle();
+        double referenceAngle = robot.getImuAngle();//Objects.isNull(constants.startOrientation) ?  robot.getImuAngle() : constants.startOrientation;
         int tmp_deadzoneadjust = 2;
         previousGamepad.copy(currentGamepad);
+
 
         waitForStart();
 

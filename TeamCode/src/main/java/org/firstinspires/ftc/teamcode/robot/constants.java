@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.acmerobotics.dashboard.config.Config;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 @Config
 public class constants {
     public static int FAR_WAIT_TEAMMATE_MILLISECONDS = 7500;
@@ -19,9 +21,9 @@ public class constants {
     public static final int TELEMETRY_MS_TRANSMISSION_INTERVAL = 25;
 
     // Autonomous constants
-    public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 3;
-    public static double LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 4.5;
-    public static double AUTO_BACKUP_EXTRA_DIST = 4;
+    public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 4;
+    public static double LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 4;
+    //public static double AUTO_BACKUP_EXTRA_DIST = 4;
 
     // todo find way to condense these into single enum? or otherwise make not bad
     public enum SPEEDS {
@@ -61,4 +63,7 @@ public class constants {
      */
     public static double COLOR_UNKNOWN_THRESHOLD_PERCENT = 0.1;
     public static double DETECTION_BOX_OFFSET_SIDES_PX = 128;
+
+    // For the field mode - must initialize at start of autonomous
+    public static double startOrientation;
 }

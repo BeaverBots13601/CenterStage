@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.teamcode.structures.Pose;
 
 import java.util.Arrays;
 import java.util.List;
@@ -139,11 +140,33 @@ public abstract class baseRobot {
         driveEncoded(target, powers);
     }
 
+    public void turnImuDegrees(int degrees, double power){
+        double targetAngle = Pose.normalizeAngle(Math.toRadians(degrees + Math.toDegrees(this.getImuAngle())));
+        while(this.opMode.opModeIsActive()){
+            if(Math.abs(targetAngle - this.getImuAngle()) >= Math.toRadians(3)) break; // 3 deg tolerance
+
+            if(this.getImuAngle() < targetAngle){
+                // rotate left?
+                setDriveMotors(new double[] {-power, -power, power, power}, DcMotor.RunMode.RUN_USING_ENCODER);
+            } else {
+                // rotate right
+                setDriveMotors(new double[] {power, power, -power, -power}, DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+
+            writeToTelemetry("Target Angle", targetAngle);
+            writeToTelemetry("Current Angle", this.getImuAngle());
+        }
+    }
+
     private IMU createImu() {
         // This creates a warning but that's ok its for backwards compat and doesn't break anything
+//        BNO055IMUNew.Parameters imuParameters = new BNO055IMUNew.Parameters(new RevHubOrientationOnRobot(
+//                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+//                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
+//        )); // todo does new facing config work
         BNO055IMUNew.Parameters imuParameters = new BNO055IMUNew.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
+                RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT
         ));
         //imuParameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
 

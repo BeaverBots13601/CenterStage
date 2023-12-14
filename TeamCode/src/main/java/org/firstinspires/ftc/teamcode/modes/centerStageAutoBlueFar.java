@@ -23,7 +23,7 @@ public class centerStageAutoBlueFar extends LinearOpMode {
         sleep(1000);
         while(line.getLastPropLocation() == CenterStageVisualPipeline.PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
         loc = line.getLastPropLocation();
-        robot.driveInches(24, .25);
+        robot.driveInches(26, .25);
         // push thing in here
         if(loc == CenterStageVisualPipeline.PropLocation.LEFT){
             robot.turnDegrees(-89, .25);
