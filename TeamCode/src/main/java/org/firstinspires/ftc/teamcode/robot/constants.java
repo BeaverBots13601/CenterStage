@@ -45,8 +45,8 @@ public class constants {
     public static final String GRAPPLE_SERVO_NAME = "grappleServo";
 
     // Must be less than 300. Only 300 Deg of Motion on the
-    public static double KNOCKER_ROTATION_DEGREES = 135;
-    public static double PAL_ROTATION_DEGREES = 120;
+    //public static double KNOCKER_ROTATION_DEGREES = 135;
+    //public static double PAL_ROTATION_DEGREES = 120;
 
     // The time we wait and maintain motor power after the robot has successfully hung, in MS
     // 5 min currently
@@ -65,5 +65,16 @@ public class constants {
     public static double DETECTION_BOX_OFFSET_SIDES_PX = 128;
 
     // For the field mode - must initialize at start of autonomous
-    public static double startOrientation;
+    //public static double startOrientation;
+
+
+    public static final double ROBOT_CIRCUMFERENCE = 98.19;
+
+    public static double ANGLE_KP = 0.250;
+
+    public static double ANGLE_KD = 0.046;
+
+
+    public static double a = .78;
+    public static double b = .3;
 }

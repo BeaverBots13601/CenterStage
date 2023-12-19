@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.teamcode.structures.AnglePID;
 import org.firstinspires.ftc.teamcode.structures.Pose;
 
 import java.util.Arrays;
@@ -160,6 +161,28 @@ public abstract class baseRobot {
                 // rotate left
                 setDriveMotors(new double[] {power, power, -power, -power}, DcMotor.RunMode.RUN_USING_ENCODER);
             }
+
+            writeToTelemetry("Target Angle", targetAngle);
+            writeToTelemetry("Current Angle", this.getImuAngle());
+        }
+    }
+
+    public void turnImuDegrees(int degrees, double power, boolean a){
+        double targetAngle = Pose.normalizeAngle(Math.toRadians(degrees) + this.getImuAngle());
+        AnglePID pid = new AnglePID(constants.ANGLE_KP, 0, constants.ANGLE_KD);
+        writeToTelemetry("Current angle", getImuAngle());
+        writeToTelemetry("Target angle", targetAngle);
+        writeToTelemetry("comparison", Math.abs(targetAngle - this.getImuAngle()) + " <= " + Math.toRadians(3));
+        updateTelemetry();
+        this.opMode.sleep(1000);
+        while(this.opMode.opModeIsActive()){
+            if(Math.abs(targetAngle - this.getImuAngle()) <= Math.toRadians(3)) {
+                setDriveMotors(new double[] {0, 0, 0, 0}, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                break; // 3 deg tolerance
+            } // fixme does not have time to correct self and ends up overshooting
+
+            double calcpower = pid.calculate(getImuAngle(), targetAngle) * power;
+            setDriveMotors(new double[] {-calcpower, -calcpower, calcpower, calcpower}, DcMotor.RunMode.RUN_USING_ENCODER);
 
             writeToTelemetry("Target Angle", targetAngle);
             writeToTelemetry("Current Angle", this.getImuAngle());

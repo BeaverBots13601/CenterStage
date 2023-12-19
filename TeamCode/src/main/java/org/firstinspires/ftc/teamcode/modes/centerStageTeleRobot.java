@@ -91,10 +91,10 @@ public class centerStageTeleRobot extends LinearOpMode {
         if(currentGamepad.right_bumper && !previousGamepad.right_bumper){
             // servo on/off
             if(servoClosed){
-                robot.getKnockerServo().setPosition(.75);
+                robot.getKnockerServo().setPosition(constants.a);
                 servoClosed = false;
             } else {
-                robot.getKnockerServo().setPosition(1);
+                robot.getKnockerServo().setPosition(constants.b);
                 servoClosed = true;
             }
         }
