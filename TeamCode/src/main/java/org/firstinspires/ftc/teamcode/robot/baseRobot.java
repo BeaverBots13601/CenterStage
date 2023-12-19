@@ -141,15 +141,23 @@ public abstract class baseRobot {
     }
 
     public void turnImuDegrees(int degrees, double power){
-        double targetAngle = Pose.normalizeAngle(Math.toRadians(degrees + Math.toDegrees(this.getImuAngle())));
+        double targetAngle = Pose.normalizeAngle(Math.toRadians(degrees) + this.getImuAngle());
+        writeToTelemetry("Current angle", getImuAngle());
+        writeToTelemetry("Target angle", targetAngle);
+        writeToTelemetry("", "" + Math.abs(targetAngle - this.getImuAngle()) + "<=" + Math.toRadians(3));
+        updateTelemetry();
+        this.opMode.sleep(1000);
         while(this.opMode.opModeIsActive()){
-            if(Math.abs(targetAngle - this.getImuAngle()) >= Math.toRadians(3)) break; // 3 deg tolerance
+            if(Math.abs(targetAngle - this.getImuAngle()) <= Math.toRadians(3)) {
+                setDriveMotors(new double[] {0, 0, 0, 0}, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                break; // 3 deg tolerance
+            } // fixme does not have time to correct self and ends up overshooting
 
             if(this.getImuAngle() < targetAngle){
-                // rotate left?
+                // rotate right
                 setDriveMotors(new double[] {-power, -power, power, power}, DcMotor.RunMode.RUN_USING_ENCODER);
             } else {
-                // rotate right
+                // rotate left
                 setDriveMotors(new double[] {power, power, -power, -power}, DcMotor.RunMode.RUN_USING_ENCODER);
             }
 
@@ -159,11 +167,6 @@ public abstract class baseRobot {
     }
 
     private IMU createImu() {
-        // This creates a warning but that's ok its for backwards compat and doesn't break anything
-//        BNO055IMUNew.Parameters imuParameters = new BNO055IMUNew.Parameters(new RevHubOrientationOnRobot(
-//                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
-//                RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
-//        )); // todo does new facing config work
         BNO055IMUNew.Parameters imuParameters = new BNO055IMUNew.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT

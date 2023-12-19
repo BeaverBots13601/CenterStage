@@ -7,9 +7,10 @@ import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 
 @Autonomous
 public class imuTestingOpmode extends LinearOpMode {
-    private centerStageRobot robot = new centerStageRobot(this);
+    private centerStageRobot robot;
     @Override
     public void runOpMode() throws InterruptedException {
+        robot = new centerStageRobot(this);
         waitForStart();
         robot.turnImuDegrees(90, .5);
         sleep(5000);
