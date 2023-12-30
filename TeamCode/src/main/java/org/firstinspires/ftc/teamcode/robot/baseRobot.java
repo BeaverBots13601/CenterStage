@@ -141,33 +141,8 @@ public abstract class baseRobot {
         driveEncoded(target, powers);
     }
 
+    // this code is fully capable of being expanded into complete autonomous PID movement, see last year's code for examples
     public void turnImuDegrees(int degrees, double power){
-        double targetAngle = Pose.normalizeAngle(Math.toRadians(degrees) + this.getImuAngle());
-        writeToTelemetry("Current angle", getImuAngle());
-        writeToTelemetry("Target angle", targetAngle);
-        writeToTelemetry("", "" + Math.abs(targetAngle - this.getImuAngle()) + "<=" + Math.toRadians(3));
-        updateTelemetry();
-        this.opMode.sleep(1000);
-        while(this.opMode.opModeIsActive()){
-            if(Math.abs(targetAngle - this.getImuAngle()) <= Math.toRadians(3)) {
-                setDriveMotors(new double[] {0, 0, 0, 0}, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                break; // 3 deg tolerance
-            } // fixme does not have time to correct self and ends up overshooting
-
-            if(this.getImuAngle() < targetAngle){
-                // rotate right
-                setDriveMotors(new double[] {-power, -power, power, power}, DcMotor.RunMode.RUN_USING_ENCODER);
-            } else {
-                // rotate left
-                setDriveMotors(new double[] {power, power, -power, -power}, DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-
-            writeToTelemetry("Target Angle", targetAngle);
-            writeToTelemetry("Current Angle", this.getImuAngle());
-        }
-    }
-
-    public void turnImuDegrees(int degrees, double power, boolean a){
         double targetAngle = Pose.normalizeAngle(Math.toRadians(degrees) + this.getImuAngle());
         AnglePID pid = new AnglePID(constants.ANGLE_KP, 0, constants.ANGLE_KD);
         writeToTelemetry("Current angle", getImuAngle());
@@ -186,6 +161,7 @@ public abstract class baseRobot {
 
             writeToTelemetry("Target Angle", targetAngle);
             writeToTelemetry("Current Angle", this.getImuAngle());
+            updateTelemetry();
         }
     }
 
@@ -194,7 +170,6 @@ public abstract class baseRobot {
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT
         ));
-        //imuParameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
 
         IMU imu = opMode.hardwareMap.get(IMU.class, "imu");
         boolean worked = imu.initialize(imuParameters);

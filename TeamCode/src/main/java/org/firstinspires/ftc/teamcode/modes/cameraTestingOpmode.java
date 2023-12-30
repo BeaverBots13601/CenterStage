@@ -13,7 +13,7 @@ public class cameraTestingOpmode extends LinearOpMode {
     public void runOpMode(){
         waitForStart();
         centerStageRobot bot = new centerStageRobot(this);
-        bot.getCamera().setPipeline(line);
+        bot.getFrontCamera().setPipeline(line);
         while(!isStopRequested()){
             bot.writeToTelemetry("Last Prop Location", line.getLastPropLocation());
             bot.updateTelemetry();

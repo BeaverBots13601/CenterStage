@@ -15,7 +15,7 @@ public class centerStageAutoBlueFar extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         centerStageRobot robot = new centerStageRobot(this);
-        robot.getCamera().setPipeline(line);
+        robot.getFrontCamera().setPipeline(line);
         waitForStart();
 
         // 89 deg turn, 4.5 dial in, 0 extra reverse

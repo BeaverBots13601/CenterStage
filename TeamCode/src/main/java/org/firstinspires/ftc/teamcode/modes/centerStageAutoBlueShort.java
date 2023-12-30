@@ -16,7 +16,7 @@ public class centerStageAutoBlueShort extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         centerStageRobot robot = new centerStageRobot(this);
-        robot.getCamera().setPipeline(line);
+        robot.getFrontCamera().setPipeline(line);
         waitForStart();
         sleep(1000);
 

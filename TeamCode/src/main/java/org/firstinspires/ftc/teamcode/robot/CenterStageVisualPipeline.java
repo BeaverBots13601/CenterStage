@@ -13,18 +13,18 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
     static final double SQUARE_SIZE_PX = 90; // og 75
     // If the camera size is too small, these boxes could end up overlapping and causing problems. For the 22-23 and 23-24 years, the camera was 1280x720.
     static final Rect LeftROI = new Rect(
-            new Point(constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
-            new Point(SQUARE_SIZE_PX+ constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
+            new Point(constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.FRONT_CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
+            new Point(SQUARE_SIZE_PX+ constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.FRONT_CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
     );
     static final Rect CenterROI = new Rect(
-            new Point(constants.CAMERA_WIDTH / 2.0 - SQUARE_SIZE_PX / 2.0,
-                    constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
-            new Point(constants.CAMERA_WIDTH / 2.0 + SQUARE_SIZE_PX / 2.0,
-                    constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
+            new Point(constants.FRONT_CAMERA_WIDTH / 2.0 - SQUARE_SIZE_PX / 2.0,
+                    constants.FRONT_CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
+            new Point(constants.FRONT_CAMERA_WIDTH / 2.0 + SQUARE_SIZE_PX / 2.0,
+                    constants.FRONT_CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
     );
     static final Rect RightROI = new Rect(
-            new Point(constants.CAMERA_WIDTH - SQUARE_SIZE_PX - constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
-            new Point(constants.CAMERA_WIDTH - constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
+            new Point(constants.FRONT_CAMERA_WIDTH - SQUARE_SIZE_PX - constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.FRONT_CAMERA_HEIGHT / 2.0 - SQUARE_SIZE_PX / 2.0),
+            new Point(constants.FRONT_CAMERA_WIDTH - constants.DETECTION_BOX_OFFSET_SIDES_PX, constants.FRONT_CAMERA_HEIGHT / 2.0 + SQUARE_SIZE_PX / 2.0)
     );
     static final double HUE_DIFF = 15;
     static final double SAT_DIFF = 205;

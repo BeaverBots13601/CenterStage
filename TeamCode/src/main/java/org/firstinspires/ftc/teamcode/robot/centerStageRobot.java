@@ -11,8 +11,7 @@ import org.firstinspires.ftc.teamcode.structures.AprilTagData;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-
-import java.util.Arrays;
+// todo modularize(?) things to stop crashing when stuff is unplugged
 
 public class centerStageRobot extends baseRobot {
     private Servo knockerServo;
@@ -21,7 +20,8 @@ public class centerStageRobot extends baseRobot {
     private DcMotorEx grappleMotor;
     private Servo grappleServo;
 
-    private final OpenCvCamera camera;
+    private final OpenCvCamera frontCamera;
+    private final OpenCvCamera sideCamera;
 
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
@@ -34,6 +34,7 @@ public class centerStageRobot extends baseRobot {
         this.grappleMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // todo: I think this camera can go up to 1920x1080 & 60fps. Not sure, test maybe?
+<<<<<<< HEAD
         this.camera = setUpCamera(constants.CAMERA_NAME, constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT);
         dashboard.startCameraStream(camera, 60);
     private DcMotorEx armMotor;
@@ -43,6 +44,13 @@ public class centerStageRobot extends baseRobot {
         super(opmode, 3.5, 13.75);
 
         //this.armMotor = createDefaultMotor("armMotor");
+=======
+        this.frontCamera = setUpCamera(constants.FRONT_CAMERA_NAME, constants.FRONT_CAMERA_WIDTH, constants.FRONT_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+        // todo find specs for this camera
+        this.sideCamera = setUpCamera(constants.SIDE_CAMERA_NAME, constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+        dashboard.startCameraStream(frontCamera, 60);
+        dashboard.startCameraStream(sideCamera, 60);
+>>>>>>> WIP unfinished does not compile. Refactor for integration of second camera & started code for AprilTag ID. Verified PID rotation code; no issues as far as I can tell just needs tuning. Noted resource for tuning values.
     }
 
     public void driveStrafe(double inches, double power) {
@@ -79,7 +87,7 @@ public class centerStageRobot extends baseRobot {
 
     public Servo getGrappleServo(){ return grappleServo; }
 
-    private OpenCvCamera setUpCamera(String cameraName, int cameraWidth, int cameraHeight){
+    private OpenCvCamera setUpCamera(String cameraName, int cameraWidth, int cameraHeight, OpenCvCameraRotation orientation){
         // todo, What's the point of this intermediate step?
         WebcamName cameraNameThing = opMode.hardwareMap.get(WebcamName.class, cameraName);
         OpenCvCamera webcam = OpenCvCameraFactory.getInstance().createWebcam(cameraNameThing);
@@ -88,7 +96,7 @@ public class centerStageRobot extends baseRobot {
             @Override
             public void onOpened() {
                 webcam.setViewportRenderer(OpenCvCamera.ViewportRenderer.NATIVE_VIEW);
-                webcam.startStreaming(cameraWidth, cameraHeight, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(cameraWidth, cameraHeight, orientation);
             }
 
             @Override
@@ -97,9 +105,10 @@ public class centerStageRobot extends baseRobot {
         return webcam;
     }
 
-    public OpenCvCamera getCamera() {
-        return camera;
+    public OpenCvCamera getFrontCamera() {
+        return frontCamera;
     }
     // servo specs: GoBilda 2000 Series Dual Mode Servo (25-3, Speed)
     // SKU: 2000-0025-0003
+    public OpenCvCamera getSideCamera(){ return sideCamera; }
 }

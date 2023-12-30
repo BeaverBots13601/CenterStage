@@ -15,7 +15,7 @@ public class centerStageAutoRedFar extends LinearOpMode {
 
     public void runOpMode() {
         centerStageRobot robot = new centerStageRobot(this);
-        robot.getCamera().setPipeline(line);
+        robot.getFrontCamera().setPipeline(line);
         waitForStart();
 
         sleep(1000);

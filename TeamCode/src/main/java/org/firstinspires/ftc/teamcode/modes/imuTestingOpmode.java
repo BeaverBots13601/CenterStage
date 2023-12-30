@@ -12,11 +12,11 @@ public class imuTestingOpmode extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot = new centerStageRobot(this);
         waitForStart();
-        robot.turnImuDegrees(90, .5, false);
+        robot.turnImuDegrees(90, .5);
         sleep(5000);
-        robot.turnImuDegrees(-180, .5, false);
+        robot.turnImuDegrees(-180, .5);
         sleep(5000);
-        robot.turnImuDegrees(90, .5, false);
+        robot.turnImuDegrees(90, .5);
     }
 }
 

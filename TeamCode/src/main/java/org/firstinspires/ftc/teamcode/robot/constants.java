@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.acmerobotics.dashboard.config.Config;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
 @Config
 public class constants {
     public static int FAR_WAIT_TEAMMATE_MILLISECONDS = 7500;
@@ -44,18 +42,20 @@ public class constants {
     public static final String PAL_SERVO_NAME = "PALServo";
     public static final String GRAPPLE_SERVO_NAME = "grappleServo";
 
-    // Must be less than 300. Only 300 Deg of Motion on the
-    //public static double KNOCKER_ROTATION_DEGREES = 135;
-    //public static double PAL_ROTATION_DEGREES = 120;
-
-    // The time we wait and maintain motor power after the robot has successfully hung, in MS
+    /**
+     * The time we wait and maintain motor power after the robot has successfully hung, in MS
+     */
     // 5 min currently
     public static int GRAPPLE_WAIT_TIME_MS = 300000;
 
     // Camera data
-    public static final String CAMERA_NAME = "camera";
-    public static final int CAMERA_WIDTH = 1280;
-    public static final int CAMERA_HEIGHT = 720;
+    public static final String FRONT_CAMERA_NAME = "camera";
+    public static final int FRONT_CAMERA_WIDTH = 1280;
+    public static final int FRONT_CAMERA_HEIGHT = 720;
+
+    public static final String SIDE_CAMERA_NAME = "sideCamera";
+    public static final int SIDE_CAMERA_WIDTH = 1280;
+    public static final int SIDE_CAMERA_HEIGHT = 720;
 
     /**
      * The percentage, from [0, 1.0], at which values equal to or below will not be used to determine the location of the team prop.
@@ -64,17 +64,14 @@ public class constants {
     public static double COLOR_UNKNOWN_THRESHOLD_PERCENT = 0.1;
     public static double DETECTION_BOX_OFFSET_SIDES_PX = 128;
 
-    // For the field mode - must initialize at start of autonomous
-    //public static double startOrientation;
-
-
     public static final double ROBOT_CIRCUMFERENCE = 98.19;
 
+    // found this might help? https://pidexplained.com/how-to-tune-a-pid-controller/
     public static double ANGLE_KP = 0.250;
 
     public static double ANGLE_KD = 0.046;
 
-
+    // temporary tuning values
     public static double a = .78;
     public static double b = .3;
 }
