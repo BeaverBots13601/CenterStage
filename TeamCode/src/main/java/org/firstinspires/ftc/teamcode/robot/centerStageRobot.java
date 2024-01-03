@@ -22,6 +22,7 @@ public class centerStageRobot extends baseRobot {
 
     private final OpenCvCamera frontCamera;
     private final OpenCvCamera sideCamera;
+    private final CenterStageAprilTagModule mod;
 
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
@@ -47,7 +48,9 @@ public class centerStageRobot extends baseRobot {
 =======
         this.frontCamera = setUpCamera(constants.FRONT_CAMERA_NAME, constants.FRONT_CAMERA_WIDTH, constants.FRONT_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
         // todo find specs for this camera
-        this.sideCamera = setUpCamera(constants.SIDE_CAMERA_NAME, constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+        mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, constants.SIDE_CAMERA_NAME), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+        sideCamera = mod.getCamera();
+        sideCamera.setPipeline(mod);
         dashboard.startCameraStream(frontCamera, 60);
         dashboard.startCameraStream(sideCamera, 60);
 >>>>>>> WIP unfinished does not compile. Refactor for integration of second camera & started code for AprilTag ID. Verified PID rotation code; no issues as far as I can tell just needs tuning. Noted resource for tuning values.
@@ -111,4 +114,5 @@ public class centerStageRobot extends baseRobot {
     // servo specs: GoBilda 2000 Series Dual Mode Servo (25-3, Speed)
     // SKU: 2000-0025-0003
     public OpenCvCamera getSideCamera(){ return sideCamera; }
+    public CenterStageAprilTagModule getMod(){ return mod; }
 }

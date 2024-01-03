@@ -56,6 +56,10 @@ public class constants {
     public static final String SIDE_CAMERA_NAME = "sideCamera";
     public static final int SIDE_CAMERA_WIDTH = 1280;
     public static final int SIDE_CAMERA_HEIGHT = 720;
+    /**
+     * The distance, in inches, at which the scanner decides we are at the "Far" position if the AprilTags it sees are beyond.
+     */
+    public static double APRILTAG_DISTANCE_DETERMINATION_THRESHOLD_INCHES = 60;
 
     /**
      * The percentage, from [0, 1.0], at which values equal to or below will not be used to determine the location of the team prop.
