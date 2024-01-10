@@ -73,9 +73,5 @@ public class constants {
     // found this might help? https://pidexplained.com/how-to-tune-a-pid-controller/
     public static double ANGLE_KP = 0.250;
 
-    public static double ANGLE_KD = 0.046;
-
-    // temporary tuning values
-    public static double a = .78;
-    public static double b = .3;
+    public static double ANGLE_KD = 0.000;
 }

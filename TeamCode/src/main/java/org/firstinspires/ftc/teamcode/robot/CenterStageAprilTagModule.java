@@ -18,7 +18,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 
-public class CenterStageAprilTagModule extends OpenCvPipeline {
+public class CenterStageAprilTagModule {
     private AprilTagProcessor aprilTag;
     private VisionPortal visionPortal;
     private ArrayList<AprilTagData> tagData;
@@ -39,44 +39,26 @@ public class CenterStageAprilTagModule extends OpenCvPipeline {
         VisionPortal.Builder builder = new VisionPortal.Builder();
         builder.setCamera(cameraNameObject);
         builder.setCameraResolution(new Size(cameraWidth, cameraHeight));
-        builder.enableLiveView(false);
+        builder.enableLiveView(true);
         builder.setAutoStopLiveView(false);
         builder.addProcessor(aprilTag);
         visionPortal = builder.build();
 
-        camera = OpenCvCameraFactory.getInstance().createWebcam(cameraNameObject);
-        // This sets up the camera n stuff. Basically just does settings
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
-            @Override
-            public void onOpened() {
-                camera.setViewportRenderer(OpenCvCamera.ViewportRenderer.NATIVE_VIEW);
-                camera.startStreaming(cameraWidth, cameraHeight, cameraOrientation);
-            }
-            @Override
-            public void onError(int errorCode) {}
-        });
-    }
-
-    public Mat processFrame(Mat in){
-        tagData = updateAprilTagData();
-
-        for(AprilTagData i : tagData){
-            // todo draw boxes around tags
-        }
-
-        return in;
+        // WARNING: Non-standard function added by us.
+        //camera = visionPortal.getActiveCameraRaw();
     }
 
     /**
      * Takes the current camera view and returns information about all visible AprilTags.
      * @return An array of objects, each signifying a detection of an AprilTag and containing data about it.
      */
-    private ArrayList<AprilTagData> updateAprilTagData(){
+    public ArrayList<AprilTagData> updateAprilTagData(){
         ArrayList<AprilTagData> data = new ArrayList<>();
         for(AprilTagDetection i : aprilTag.getDetections()){
-            data.add(new AprilTagData(i.metadata.id, i.ftcPose.y, i.hamming, i.corners, i.center));
+            data.add(new AprilTagData(i.id, i.ftcPose.y, i.hamming, i.corners, i.center));
         }
 
+        tagData = data;
         return data;
     }
 

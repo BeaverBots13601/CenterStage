@@ -27,6 +27,7 @@ public class centerStageAutoUnified extends LinearOpMode {
         robot.getFrontCamera().setPipeline(line);
 
         CenterStageAprilTagModule tags = robot.getMod();
+        tags.updateAprilTagData();
         AprilTagData max = new AprilTagData(); // default
         for(AprilTagData tag : tags.getAprilTagData()){
             if(Math.max(tag.getDist(), max.getDist()) == max.getDist()) max = tag;
@@ -34,18 +35,18 @@ public class centerStageAutoUnified extends LinearOpMode {
 
         sleep(1000);
 
-        // assumes camera is mounted on right side. Sorry it's kinda confusing, using a map helps to understand
-        if (max.getId() == 10) { // sees blue wall tag
+        // assumes camera is mounted on left side. Sorry it's kinda confusing, using a map helps to understand
+        if (max.getId() == 7) { // sees red wall tag
             if(max.getDist() > constants.APRILTAG_DISTANCE_DETERMINATION_THRESHOLD_INCHES){
-                currentLocation = Locations.BlueClose; // tag far away, we are close to bb
+                currentLocation = Locations.RedClose; // tag far away, we are close to bb
             } else {
-                currentLocation = Locations.BlueFar; // tag nearby
+                currentLocation = Locations.RedFar; // tag nearby
             }
         } else {
             if (max.getDist() > constants.APRILTAG_DISTANCE_DETERMINATION_THRESHOLD_INCHES) {
-                currentLocation = Locations.RedFar; // inverse of blue because the camera is pointing at & reading bb now
+                currentLocation = Locations.BlueFar; // inverse of blue because the camera is pointing at & reading bb now
             } else {
-                currentLocation = Locations.RedClose; // tag nearby
+                currentLocation = Locations.BlueClose; // tag nearby
             }
         }
 

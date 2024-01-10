@@ -1,13 +1,22 @@
 package org.firstinspires.ftc.teamcode.robot;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import android.util.Size;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
 import org.firstinspires.ftc.teamcode.structures.AprilTagData;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -27,7 +36,7 @@ public class centerStageRobot extends baseRobot {
     public centerStageRobot(LinearOpMode opmode) {
         super(opmode, 3.5, 13.75);
         this.knockerServo = setUpServo(constants.KNOCKER_SERVO_NAME);
-        this.knockerServo.setDirection(Servo.Direction.REVERSE);
+        this.knockerServo.setDirection(Servo.Direction.FORWARD);
         this.grappleServo = setUpServo(constants.GRAPPLE_SERVO_NAME);
         this.PALServo = setUpServo(constants.PAL_SERVO_NAME);
 
@@ -35,7 +44,6 @@ public class centerStageRobot extends baseRobot {
         this.grappleMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // todo: I think this camera can go up to 1920x1080 & 60fps. Not sure, test maybe?
-<<<<<<< HEAD
         this.camera = setUpCamera(constants.CAMERA_NAME, constants.CAMERA_WIDTH, constants.CAMERA_HEIGHT);
         dashboard.startCameraStream(camera, 60);
     private DcMotorEx armMotor;
@@ -45,15 +53,13 @@ public class centerStageRobot extends baseRobot {
         super(opmode, 3.5, 13.75);
 
         //this.armMotor = createDefaultMotor("armMotor");
-=======
         this.frontCamera = setUpCamera(constants.FRONT_CAMERA_NAME, constants.FRONT_CAMERA_WIDTH, constants.FRONT_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
         // todo find specs for this camera
         mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, constants.SIDE_CAMERA_NAME), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
         sideCamera = mod.getCamera();
-        sideCamera.setPipeline(mod);
+
         dashboard.startCameraStream(frontCamera, 60);
-        dashboard.startCameraStream(sideCamera, 60);
->>>>>>> WIP unfinished does not compile. Refactor for integration of second camera & started code for AprilTag ID. Verified PID rotation code; no issues as far as I can tell just needs tuning. Noted resource for tuning values.
+        //dashboard.startCameraStream(sideCamera, 60);
     }
 
     public void driveStrafe(double inches, double power) {

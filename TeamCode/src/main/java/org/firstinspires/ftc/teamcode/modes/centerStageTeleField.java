@@ -110,10 +110,10 @@ public class centerStageTeleField extends LinearOpMode {
         if(currentGamepad.right_bumper && !previousGamepad.right_bumper){
             // servo on/off
             if(servoClosed){
-                robot.getKnockerServo().setPosition(.75);
+                robot.getKnockerServo().setPosition(.67);
                 servoClosed = false;
             } else {
-                robot.getKnockerServo().setPosition(1);
+                robot.getKnockerServo().setPosition(1.0);
                 servoClosed = true;
             }
         }
