@@ -80,7 +80,7 @@ public class centerStageTeleRobot extends LinearOpMode {
             constants.currentSpeedMode = constants.SPEEDS.SLOW;
         }
         if(currentGamepad.dpad_left && !previousGamepad.dpad_left){
-            // todo make this only work while dashboard is running (if thats possible)
+            // todo make this only work while dashboard is running (if that's possible)
             constants.currentSpeedMode = constants.SPEEDS.CUSTOM_FTC_DASHBOARD;
         }
         if(currentGamepad.options && !previousGamepad.options){

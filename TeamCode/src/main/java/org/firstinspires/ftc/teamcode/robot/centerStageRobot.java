@@ -9,18 +9,17 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.structures.AprilTagData;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 // todo modularize(?) things to stop crashing when stuff is unplugged
 public class centerStageRobot extends baseRobot {
-    private Servo knockerServo;
-    private Servo PALServo;
+    private final Servo knockerServo;
+    private final Servo PALServo;
 
-    private DcMotorEx grappleMotor;
-    private Servo grappleServo;
+    private final DcMotorEx grappleMotor;
+    private final Servo grappleServo;
 
     private final OpenCvCamera frontCamera;
     private final OpenCvCamera sideCamera;
@@ -48,7 +47,7 @@ public class centerStageRobot extends baseRobot {
         //this.armMotor = createDefaultMotor("armMotor");
         this.frontCamera = setUpCamera(constants.FRONT_CAMERA_NAME, constants.FRONT_CAMERA_WIDTH, constants.FRONT_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
         // todo find specs for this camera
-        mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, "camera"/*constants.SIDE_CAMERA_NAME*/), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+        mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, "camera"/*constants.SIDE_CAMERA_NAME*/), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT);
         sideCamera = mod.getCamera();
 
         dashboard.startCameraStream(frontCamera, 60);
@@ -61,10 +60,6 @@ public class centerStageRobot extends baseRobot {
         double[] powers = new double[] {power, -power, -power, power};
 
         driveEncoded(target, powers);
-    }
-
-    public AprilTagData[] identifyTags() {
-        return new AprilTagData[] {};
     }
 
 
@@ -90,7 +85,6 @@ public class centerStageRobot extends baseRobot {
     public Servo getGrappleServo(){ return grappleServo; }
 
     private OpenCvCamera setUpCamera(String cameraName, int cameraWidth, int cameraHeight, OpenCvCameraRotation orientation){
-        // todo, What's the point of this intermediate step?
         WebcamName cameraNameThing = opMode.hardwareMap.get(WebcamName.class, cameraName);
         OpenCvCamera webcam = OpenCvCameraFactory.getInstance().createWebcam(cameraNameThing);
         // This sets up the camera n stuff. Basically just does settings

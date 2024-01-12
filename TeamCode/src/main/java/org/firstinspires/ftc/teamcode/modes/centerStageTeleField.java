@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.modes;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -14,8 +14,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 import org.firstinspires.ftc.teamcode.structures.Pose;
-
-import java.util.Objects;
 
 @TeleOp(name="TeleOp Controls (Field)", group ="CenterStage")
 public class centerStageTeleField extends LinearOpMode {
@@ -99,7 +97,7 @@ public class centerStageTeleField extends LinearOpMode {
             constants.currentSpeedMode = constants.SPEEDS.SLOW;
         }
         if(currentGamepad.dpad_left && !previousGamepad.dpad_left){
-            // todo make this only work while dashboard is running (if thats possible)
+            // todo make this only work while dashboard is running (if that's possible)
             constants.currentSpeedMode = constants.SPEEDS.CUSTOM_FTC_DASHBOARD;
         }
         if(currentGamepad.options && !previousGamepad.options){

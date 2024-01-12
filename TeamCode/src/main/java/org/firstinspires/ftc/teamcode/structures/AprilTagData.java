@@ -1,19 +1,13 @@
 package org.firstinspires.ftc.teamcode.structures;
 
-import org.opencv.core.Point;
-
 public class AprilTagData {
     private int id;
-    private double dist;
+    private final double dist;
     private int correctedBits;
-    private Point[] corners;
-    private Point center;
-    public AprilTagData(int id, double dist, int correctedBits, Point[] corners, Point center){
+    public AprilTagData(int id, double dist, int correctedBits){
         this.id = id;
         this.dist = dist;
         this.correctedBits = correctedBits;
-        this.corners = corners;
-        this.center = center;
     }
 
     public AprilTagData(){
@@ -28,11 +22,5 @@ public class AprilTagData {
     }
     public int getCorrectedBits() {
         return correctedBits;
-    }
-    public Point[] getCorners() {
-        return corners;
-    }
-    public Point getCenter() {
-        return center;
     }
 }

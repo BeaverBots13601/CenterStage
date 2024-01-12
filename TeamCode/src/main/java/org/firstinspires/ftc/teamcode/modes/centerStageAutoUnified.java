@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 import org.firstinspires.ftc.teamcode.structures.AprilTagData;
 
-@Autonomous(name="EncoderAutonomousUnified")
+@Autonomous(name="Unified Autonomous")
 public class centerStageAutoUnified extends LinearOpMode {
     private enum Locations {
         BlueClose,
@@ -29,7 +29,7 @@ public class centerStageAutoUnified extends LinearOpMode {
         CenterStageAprilTagModule tags = robot.getMod();
         tags.updateAprilTagData();
         AprilTagData max = new AprilTagData(); // default
-        for(AprilTagData tag : tags.getAprilTagData()){
+        for(AprilTagData tag : tags.updateAprilTagData()){
             if(Math.max(tag.getDist(), max.getDist()) == max.getDist()) max = tag;
         }
 
@@ -114,9 +114,6 @@ public class centerStageAutoUnified extends LinearOpMode {
                 robot.driveInches(-25, .5);
                 robot.turnDegrees(-90, .3);
                 robot.driveInches(85, .5);
-            }
-            default: {
-                return;
             }
         }
     }

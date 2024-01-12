@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.structures;
 
 import org.firstinspires.ftc.teamcode.robot.constants;
-import org.firstinspires.ftc.teamcode.structures.PID;
 
 /**
  * PID Controller which can handle angles.

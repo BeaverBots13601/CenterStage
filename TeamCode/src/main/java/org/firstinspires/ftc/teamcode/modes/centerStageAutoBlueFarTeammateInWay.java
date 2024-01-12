@@ -8,11 +8,11 @@ import org.firstinspires.ftc.teamcode.robot.CenterStageVisualPipeline;
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 
-// todo test and reenable
+// todo test and re-enable
 @Disabled
 @Autonomous(name="AutonomousBlueFarTeammateInCorner", group="CenterStage")
 public class centerStageAutoBlueFarTeammateInWay extends LinearOpMode {
-    private CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.BLUE);
+    private final CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.BLUE);
     private CenterStageVisualPipeline.PropLocation loc;
     private int iterations = 0;
 

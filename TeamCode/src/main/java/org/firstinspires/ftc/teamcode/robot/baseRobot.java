@@ -29,7 +29,6 @@ public abstract class baseRobot {
     private final IMU imu;
     public final FtcDashboard dashboard = FtcDashboard.getInstance();
     private TelemetryPacket packet = new TelemetryPacket();
-    //private ElapsedTime timer;
     private final TelemetryPacket packet = new TelemetryPacket();
 
     public baseRobot(LinearOpMode opmode, double wheelDiameter, double robotDiameter) {
@@ -43,9 +42,6 @@ public abstract class baseRobot {
         this.imu = createImu();
 
         initBulkReads();
-
-        //this.timer = new ElapsedTime();
-        //timer.reset();
 
         writeToTelemetry(">", "Hardware Initialized");
         updateTelemetry();
@@ -130,8 +126,8 @@ public abstract class baseRobot {
 
     /**
      * turns degrees
-     * @param degrees Degs to turn. Positive is to the right, negative to the left
-     * @param power
+     * @param degrees Degrees to turn. Positive is to the right, negative to the left
+     * @param power The power to turn at, from [0, 1]
      */
     public void turnDegrees(int degrees, double power) {
         int targetInches = (int) this.inchesToEncoder(Math.toRadians(degrees) * this.robotDiameter);
@@ -154,7 +150,7 @@ public abstract class baseRobot {
             if(Math.abs(targetAngle - this.getImuAngle()) <= Math.toRadians(3)) {
                 setDriveMotors(new double[] {0, 0, 0, 0}, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break; // 3 deg tolerance
-            } // fixme does not have time to correct self and ends up overshooting
+            }
 
             double calcpower = pid.calculate(getImuAngle(), targetAngle) * power;
             setDriveMotors(new double[] {-calcpower, -calcpower, calcpower, calcpower}, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -206,7 +202,6 @@ public abstract class baseRobot {
     }
 
     public void updateTelemetry(){
-        //writeToTelemetry("ElapsedTime (s): ", timer.milliseconds() / 1000); //fixme later
         this.opMode.telemetry.update();
         //opMode.hardwareMap.voltageSensor.get(""); fixme get voltage readings
         dashboard.sendTelemetryPacket(packet);

@@ -7,9 +7,9 @@ import org.firstinspires.ftc.teamcode.robot.CenterStageVisualPipeline;
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 
-@Autonomous(name="EncoderAutonomousRedFar", group="CenterStage")
+@Autonomous(name="Red-Far Autonomous", group="CenterStage")
 public class centerStageAutoRedFar extends LinearOpMode {
-    private CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.RED);
+    private final CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.RED);
     private CenterStageVisualPipeline.PropLocation loc;
     private int iterations = 0;
 

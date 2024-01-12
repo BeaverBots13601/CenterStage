@@ -1,16 +1,17 @@
 package org.firstinspires.ftc.teamcode.modes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 
-@Autonomous
+@Autonomous(name="IMU Turning Test")
+@Disabled
 public class imuTestingOpmode extends LinearOpMode {
-    private centerStageRobot robot;
     @Override
     public void runOpMode() throws InterruptedException {
-        robot = new centerStageRobot(this);
+        centerStageRobot robot = new centerStageRobot(this);
         waitForStart();
         robot.turnImuDegrees(90, .4);
         sleep(5000);

@@ -8,9 +8,9 @@ import org.firstinspires.ftc.teamcode.robot.centerStageRobot;
 import org.firstinspires.ftc.teamcode.robot.constants;
 import org.firstinspires.ftc.teamcode.robot.CenterStageVisualPipeline.PropLocation;
 
-@Autonomous(name="EncoderAutonomousBlueClose", group="CenterStage")
+@Autonomous(name="Blue-Close Autonomous", group="CenterStage")
 public class centerStageAutoBlueShort extends LinearOpMode {
-    private CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.BLUE);
+    private final CenterStageVisualPipeline line = new CenterStageVisualPipeline(CenterStageVisualPipeline.PropColors.BLUE);
     private PropLocation loc;
     private int iterations = 0;
 

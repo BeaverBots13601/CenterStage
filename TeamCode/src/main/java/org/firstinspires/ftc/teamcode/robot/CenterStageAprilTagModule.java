@@ -10,25 +10,20 @@ import org.firstinspires.ftc.teamcode.structures.VisionPortalEx;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-import org.opencv.core.Mat;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 
 public class CenterStageAprilTagModule {
-    private AprilTagProcessor aprilTag;
-    private VisionPortalEx visionPortal;
-    private ArrayList<AprilTagData> tagData;
-    private OpenCvCamera camera;
+    private final AprilTagProcessor aprilTag;
+    private final VisionPortalEx visionPortal;
+    private final OpenCvCamera camera;
 
     /**
      * Handles the scanning and recognition of AprilTags, in addition to the setup process for the camera.
      * @param cameraNameObject The WebcamName object of the camera.
      */
-    public CenterStageAprilTagModule(WebcamName cameraNameObject, int cameraWidth, int cameraHeight, OpenCvCameraRotation cameraOrientation){
+    public CenterStageAprilTagModule(WebcamName cameraNameObject, int cameraWidth, int cameraHeight){
         aprilTag = new AprilTagProcessor.Builder()
                 .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
                 .setTagLibrary(AprilTagGameDatabase.getCenterStageTagLibrary())
@@ -56,18 +51,13 @@ public class CenterStageAprilTagModule {
     public ArrayList<AprilTagData> updateAprilTagData(){
         ArrayList<AprilTagData> data = new ArrayList<>();
         for(AprilTagDetection i : aprilTag.getDetections()){
-            data.add(new AprilTagData(i.id, i.ftcPose.y, i.hamming, i.corners, i.center));
+            data.add(new AprilTagData(i.id, i.ftcPose.y, i.hamming));
         }
 
-        tagData = data;
         return data;
     }
 
     public OpenCvCamera getCamera() {
         return camera;
-    }
-
-    public ArrayList<AprilTagData> getAprilTagData(){
-        return tagData;
     }
 }
