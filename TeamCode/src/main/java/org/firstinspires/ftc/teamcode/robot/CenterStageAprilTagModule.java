@@ -6,7 +6,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.structures.AprilTagData;
-import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.teamcode.structures.VisionPortalEx;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class CenterStageAprilTagModule {
     private AprilTagProcessor aprilTag;
-    private VisionPortal visionPortal;
+    private VisionPortalEx visionPortal;
     private ArrayList<AprilTagData> tagData;
     private OpenCvCamera camera;
 
@@ -36,7 +36,7 @@ public class CenterStageAprilTagModule {
                 .build(); // todo camera calibration
         //aprilTag.setDecimation(); // todo me
 
-        VisionPortal.Builder builder = new VisionPortal.Builder();
+        VisionPortalEx.Builder builder = new VisionPortalEx.Builder();
         builder.setCamera(cameraNameObject);
         builder.setCameraResolution(new Size(cameraWidth, cameraHeight));
         builder.enableLiveView(true);
@@ -45,7 +45,7 @@ public class CenterStageAprilTagModule {
         visionPortal = builder.build();
 
         // WARNING: Non-standard function added by us.
-        //camera = visionPortal.getActiveCameraRaw();
+        camera = visionPortal.getActiveCameraRaw();
     }
 
     /**

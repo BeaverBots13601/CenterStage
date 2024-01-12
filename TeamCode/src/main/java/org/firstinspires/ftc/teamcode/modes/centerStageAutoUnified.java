@@ -36,7 +36,7 @@ public class centerStageAutoUnified extends LinearOpMode {
         sleep(1000);
 
         // assumes camera is mounted on left side. Sorry it's kinda confusing, using a map helps to understand
-        if (max.getId() == 7) { // sees red wall tag
+        if (max.getId() == 7 || max.getId() == 10) { // sees red wall tag
             if(max.getDist() > constants.APRILTAG_DISTANCE_DETERMINATION_THRESHOLD_INCHES){
                 currentLocation = Locations.RedClose; // tag far away, we are close to bb
             } else {
@@ -114,6 +114,9 @@ public class centerStageAutoUnified extends LinearOpMode {
                 robot.driveInches(-25, .5);
                 robot.turnDegrees(-90, .3);
                 robot.driveInches(85, .5);
+            }
+            default: {
+                return;
             }
         }
     }

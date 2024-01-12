@@ -8,20 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
 import org.firstinspires.ftc.teamcode.structures.AprilTagData;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-// todo modularize(?) things to stop crashing when stuff is unplugged
 
+// todo modularize(?) things to stop crashing when stuff is unplugged
 public class centerStageRobot extends baseRobot {
     private Servo knockerServo;
     private Servo PALServo;
@@ -55,7 +48,7 @@ public class centerStageRobot extends baseRobot {
         //this.armMotor = createDefaultMotor("armMotor");
         this.frontCamera = setUpCamera(constants.FRONT_CAMERA_NAME, constants.FRONT_CAMERA_WIDTH, constants.FRONT_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
         // todo find specs for this camera
-        mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, constants.SIDE_CAMERA_NAME), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+        mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, "camera"/*constants.SIDE_CAMERA_NAME*/), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
         sideCamera = mod.getCamera();
 
         dashboard.startCameraStream(frontCamera, 60);
