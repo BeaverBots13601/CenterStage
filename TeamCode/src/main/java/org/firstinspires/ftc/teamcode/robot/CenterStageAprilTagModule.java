@@ -33,7 +33,8 @@ public class CenterStageAprilTagModule {
                 .setTagFamily(AprilTagProcessor.TagFamily.TAG_36h11)
                 .setTagLibrary(AprilTagGameDatabase.getCenterStageTagLibrary())
                 .setOutputUnits(DistanceUnit.INCH, AngleUnit.DEGREES) // ang unit doesn't matter
-                .build(); // todo camera calibration
+                .setLensIntrinsics(1500.35, 1500.35, 961.278, 563.176)
+                .build();
         //aprilTag.setDecimation(); // todo me
 
         VisionPortalEx.Builder builder = new VisionPortalEx.Builder();
