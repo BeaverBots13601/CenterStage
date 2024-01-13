@@ -203,7 +203,6 @@ public abstract class baseRobot {
 
     public void updateTelemetry(){
         this.opMode.telemetry.update();
-        //opMode.hardwareMap.voltageSensor.get(""); fixme get voltage readings
         dashboard.sendTelemetryPacket(packet);
         packet = new TelemetryPacket();
         dashboard.sendTelemetryPacket(packet);
