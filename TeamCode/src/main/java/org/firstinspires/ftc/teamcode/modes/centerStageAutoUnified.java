@@ -61,6 +61,9 @@ public class centerStageAutoUnified extends LinearOpMode {
 
         while(line.getLastPropLocation() == PropLocation.UNKNOWN && iterations < 500){ sleep(10); iterations++; }
         propLocation = line.getLastPropLocation();
+        robot.writeToTelemetry("Location", currentLocation);
+        robot.writeToTelemetry("Prop Location", propLocation);
+        robot.updateTelemetry();
         robot.driveInches(26, .25);
         // push thing in here
         if(propLocation == PropLocation.LEFT){
@@ -88,13 +91,14 @@ public class centerStageAutoUnified extends LinearOpMode {
                 robot.turnDegrees(-90, .5);
                 robot.driveInches(18, .5);
             }
+            default:
             case BlueFar: {
                 // sleep to avoid hitting our teammate
                 sleep(constants.FAR_WAIT_TEAMMATE_MILLISECONDS);
 
                 //go to back board
                 robot.driveInches(-25, .5);
-                robot.turnDegrees(90, .3);
+                robot.turnDegrees(-90, .3);
                 robot.driveInches(85, .5);
             }
             case RedClose: {
@@ -112,7 +116,7 @@ public class centerStageAutoUnified extends LinearOpMode {
 
                 //go to back board
                 robot.driveInches(-25, .5);
-                robot.turnDegrees(-90, .3);
+                robot.turnDegrees(90, .3);
                 robot.driveInches(85, .5);
             }
         }

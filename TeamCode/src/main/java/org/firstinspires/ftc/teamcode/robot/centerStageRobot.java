@@ -47,11 +47,11 @@ public class centerStageRobot extends baseRobot {
         //this.armMotor = createDefaultMotor("armMotor");
         this.frontCamera = setUpCamera(constants.FRONT_CAMERA_NAME, constants.FRONT_CAMERA_WIDTH, constants.FRONT_CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
         // todo find specs for this camera
-        mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, "camera"/*constants.SIDE_CAMERA_NAME*/), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT);
+        mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, constants.SIDE_CAMERA_NAME), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT);
         sideCamera = mod.getCamera();
 
-        dashboard.startCameraStream(frontCamera, 60);
-        //dashboard.startCameraStream(sideCamera, 60);
+        //dashboard.startCameraStream(frontCamera, 60);
+        dashboard.startCameraStream(sideCamera, 60);
     }
 
     public void driveStrafe(double inches, double power) {
