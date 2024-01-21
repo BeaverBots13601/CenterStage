@@ -11,7 +11,7 @@ public class AprilTagData {
     }
 
     public AprilTagData(){
-        this.dist = -1;
+        this.dist = -10;
     }
 
     public int getId() {

@@ -15,7 +15,7 @@ public class centerStageTeleRobot extends LinearOpMode {
     private centerStageRobot robot;
     private Gamepad currentGamepad = new Gamepad();
     private Gamepad previousGamepad = new Gamepad();
-    private boolean servoClosed = false;
+    private boolean servoClosed = true;
     private boolean liftDown = true;
 
     public void runOpMode() {
@@ -91,9 +91,11 @@ public class centerStageTeleRobot extends LinearOpMode {
         if(currentGamepad.right_bumper && !previousGamepad.right_bumper){
             // servo on/off
             if(servoClosed){
+                // gets moved away from claw
                 robot.getKnockerServo().setPosition(0.67);
                 servoClosed = false;
             } else {
+                // gets moved to claw
                 robot.getKnockerServo().setPosition(1.0);
                 servoClosed = true;
             }
@@ -105,13 +107,11 @@ public class centerStageTeleRobot extends LinearOpMode {
                 robot.getGrappleServo().setDirection(Servo.Direction.FORWARD);
                 robot.getGrappleServo().setPosition(.45);
                 robot.writeToTelemetry("Grapple Lift Up", true);
-                robot.updateTelemetry();
                 liftDown = false;
             } else {
                 robot.getGrappleServo().setDirection(Servo.Direction.REVERSE);
                 robot.getGrappleServo().setPosition(0);
                 robot.writeToTelemetry("Grapple Lift Up", false);
-                robot.updateTelemetry();
                 liftDown = true;
             }
         }

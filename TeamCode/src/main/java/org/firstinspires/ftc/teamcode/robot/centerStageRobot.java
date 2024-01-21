@@ -50,8 +50,8 @@ public class centerStageRobot extends baseRobot {
         mod = new CenterStageAprilTagModule(opmode.hardwareMap.get(WebcamName.class, constants.SIDE_CAMERA_NAME), constants.SIDE_CAMERA_WIDTH, constants.SIDE_CAMERA_HEIGHT);
         sideCamera = mod.getCamera();
 
-        //dashboard.startCameraStream(frontCamera, 60);
-        dashboard.startCameraStream(sideCamera, 60);
+        dashboard.startCameraStream(frontCamera, 60);
+        //dashboard.startCameraStream(sideCamera, 60);
     }
 
     public void driveStrafe(double inches, double power) {

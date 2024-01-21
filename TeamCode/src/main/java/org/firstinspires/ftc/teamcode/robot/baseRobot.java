@@ -169,7 +169,7 @@ public abstract class baseRobot {
 
         IMU imu = opMode.hardwareMap.get(IMU.class, "imu");
         boolean worked = imu.initialize(imuParameters);
-        writeToTelemetry("IMU Initialized Goodly?", worked); updateTelemetry();
+        writeToTelemetry("IMU Initialized Goodly?", worked);
 
         return imu;
     }

@@ -123,13 +123,11 @@ public class centerStageTeleField extends LinearOpMode {
                 robot.getGrappleServo().setDirection(Servo.Direction.FORWARD);
                 robot.getGrappleServo().setPosition(.15);
                 robot.writeToTelemetry("Grapple Lift Up", true);
-                robot.updateTelemetry();
                 liftDown = false;
             } else {
                 robot.getGrappleServo().setDirection(Servo.Direction.REVERSE);
                 robot.getGrappleServo().setPosition(.15);
                 robot.writeToTelemetry("Grapple Lift Up", false);
-                robot.updateTelemetry();
                 liftDown = true;
             }
         }

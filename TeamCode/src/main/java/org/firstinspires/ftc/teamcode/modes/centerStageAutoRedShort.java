@@ -26,16 +26,18 @@ public class centerStageAutoRedShort extends LinearOpMode {
         // push thing in here
         if(loc == PropLocation.LEFT){
             robot.turnDegrees(-89, .25);
+            sleep(1000);
             robot.driveInches(constants.LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
-            robot.driveInches(-constants.LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES, .5);
+            robot.driveInches(-constants.LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES - 2, .5);
             robot.turnDegrees(89, .25);
         } else if(loc == PropLocation.CENTER || loc == PropLocation.UNKNOWN) {
+            sleep(500);
             // center and fallback
             robot.driveInches(constants.CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES, .5);
         } else if(loc == PropLocation.RIGHT) {
             robot.turnDegrees(89, .25);
-            robot.driveInches(2.5, .5);
-            robot.driveInches(-4.5, .5);
+            robot.driveInches(3.5, .5);
+            robot.driveInches(-5, .5);
             robot.turnDegrees(-89, .25);
         }
 

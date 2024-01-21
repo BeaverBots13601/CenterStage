@@ -19,8 +19,8 @@ public class constants {
     public static final int TELEMETRY_MS_TRANSMISSION_INTERVAL = 25;
 
     // Autonomous constants
-    public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 4;
-    public static double LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 4;
+    public static double CENTER_AUTO_PUSH_PIX_FORWARD_DIST_INCHES = 2;
+    public static double LEFT_SIDE_AUTO_PUSH_PIX_INTO_POS_DIST_INCHES = 2.5;
     //public static double AUTO_BACKUP_EXTRA_DIST = 4;
 
     // todo find way to condense these into single enum? or otherwise make not bad
@@ -59,7 +59,7 @@ public class constants {
     /**
      * The distance, in inches, at which the scanner decides we are at the "Far" position if the AprilTags it sees are beyond.
      */
-    public static double APRILTAG_DISTANCE_DETERMINATION_THRESHOLD_INCHES = 60;
+    public static double APRILTAG_DISTANCE_DETERMINATION_THRESHOLD_INCHES = 85;
 
     /**
      * The percentage, from [0, 1.0], at which values equal to or below will not be used to determine the location of the team prop.
