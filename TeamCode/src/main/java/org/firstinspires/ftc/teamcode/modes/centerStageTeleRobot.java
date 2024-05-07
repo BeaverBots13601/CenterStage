@@ -118,7 +118,7 @@ public class centerStageTeleRobot extends LinearOpMode {
         // Make robot pull itself up
         if(currentGamepad.share && !previousGamepad.share){
             DcMotorEx motor = robot.getGrappleMotor();
-            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); // fixme don't think this idea works
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); //fg don't think this idea works
             motor.setPower(0.95);
             sleep(8000);
             motor.setPower(0.5);

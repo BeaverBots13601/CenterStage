@@ -86,7 +86,6 @@ public class CenterStageVisualPipeline extends OpenCvPipeline {
 
             double max = Math.max(leftBluePercentage, Math.max(centerBluePercentage, rightBluePercentage));
             // The box most detected is made purple
-            // todo these boxes need a thicker border
             if(max <= constants.COLOR_UNKNOWN_THRESHOLD_PERCENT){
                 propLocation = PropLocation.UNKNOWN;
                 Imgproc.rectangle(input, LeftROI, new Scalar(0, 0, 255), 3);

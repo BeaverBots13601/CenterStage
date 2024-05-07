@@ -27,7 +27,7 @@ public abstract class baseRobot {
     private final double wheelDiameter;
     private final double robotDiameter;
     private final IMU imu;
-    public final FtcDashboard dashboard = FtcDashboard.getInstance();
+    protected final FtcDashboard dashboard = FtcDashboard.getInstance();
     private TelemetryPacket packet = new TelemetryPacket();
     private final TelemetryPacket packet = new TelemetryPacket();
 
